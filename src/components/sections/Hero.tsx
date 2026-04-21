@@ -1,0 +1,162 @@
+import { useEffect, useRef } from 'react'
+import { Button, ImagePlaceholder } from '@/components/ui'
+import { cn } from '@/lib/utils'
+
+interface HeroProps {
+  onBookClick: () => void
+  className?: string
+}
+
+export function Hero({ onBookClick, className }: HeroProps) {
+  const badgeRef   = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const subtitleRef= useRef<HTMLParagraphElement>(null)
+  const ctaRef     = useRef<HTMLDivElement>(null)
+  const trustRef   = useRef<HTMLUListElement>(null)
+  const imageRef   = useRef<HTMLDivElement>(null)
+  const ctxRef     = useRef<{ revert: () => void } | null>(null)
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let cancelled = false
+
+    async function animate() {
+      const { gsap } = await import('gsap')
+      if (cancelled) return
+      ctxRef.current?.revert()
+      ctxRef.current = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+        tl.fromTo(badgeRef.current,    { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.15)
+          .fromTo(headingRef.current,  { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: 0.9 }, 0.27)
+          .fromTo(subtitleRef.current, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.42)
+          .fromTo(ctaRef.current,      { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.54)
+          .fromTo(trustRef.current,    { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 0.65)
+          .fromTo(imageRef.current,    { autoAlpha: 0, scale: 1.03 }, { autoAlpha: 1, scale: 1, duration: 1.1 }, 0.1)
+      })
+    }
+
+    animate()
+    return () => {
+      cancelled = true
+      ctxRef.current?.revert()
+      ctxRef.current = null
+    }
+  }, [])
+
+  return (
+    <section
+      id="main-content"
+      aria-label="Hero — Start your BJJ journey"
+      className={cn(
+        'relative min-h-screen flex items-center overflow-hidden bg-[var(--color-bg)] pt-[68px]',
+        className
+      )}
+    >
+      {/* Subtle accent gradient */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          background: 'radial-gradient(ellipse 60% 50% at 70% 50%, var(--color-accent), transparent)',
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative mx-auto w-full max-w-[1280px] px-6 py-16 md:px-10 md:py-24">
+        <div className="grid items-center gap-12 md:grid-cols-12">
+
+          {/* Text — 7 cols */}
+          <div className="md:col-span-7 flex flex-col gap-6">
+            <div ref={badgeRef} style={{ opacity: 0 }}>
+              <span className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                <span className="block h-px w-10 bg-[var(--color-text-muted)] opacity-40" aria-hidden="true" />
+                5.0 ★ Google · 116 Active Members
+                <span className="block h-px w-10 bg-[var(--color-text-muted)] opacity-40" aria-hidden="true" />
+              </span>
+            </div>
+
+            <h1
+              ref={headingRef}
+              className="text-fluid-hero font-['Anton'] uppercase text-[var(--color-text)]"
+              style={{ fontFamily: 'var(--font-display)', opacity: 0 }}
+            >
+              Start Jiu-Jitsu with a{' '}
+              <span style={{ color: 'rgba(var(--accent-rgb), 0.9)' }}>
+                World Champion
+              </span>{' '}
+              in Miami
+            </h1>
+
+            <p
+              ref={subtitleRef}
+              className="text-fluid-body text-[var(--color-text-secondary)] max-w-xl"
+              style={{ opacity: 0 }}
+            >
+              Sanctum's Head Coach won the Jiu-Jitsu World Championship in 2025, but that's not his greatest title. He says helping his students improve on and off the mats in a beginner-friendly gym is even better.
+            </p>
+
+            <div ref={ctaRef} className="flex flex-wrap gap-3" style={{ opacity: 0 }}>
+              <Button onClick={onBookClick} size="lg">
+                Book my first free trial class
+                <ArrowRight />
+              </Button>
+              <Button
+                as="a"
+                href="#our-classes"
+                variant="ghost"
+                size="lg"
+              >
+                See Programs
+              </Button>
+            </div>
+
+            <ul
+              ref={trustRef}
+              className="flex flex-wrap gap-x-6 gap-y-2"
+              role="list"
+              style={{ opacity: 0 }}
+            >
+              {['No experience needed', 'No long-term contracts', 'Kids & Adults programs'].map(
+                (item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]"
+                  >
+                    <CheckIcon />
+                    {item}
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+
+          {/* Image — 5 cols */}
+          <div ref={imageRef} className="md:col-span-5" style={{ opacity: 0 }}>
+            <ImagePlaceholder
+              label="Students training Brazilian Jiu-Jitsu at Sanctum Academy in Miami"
+              aspectRatio="4/5"
+              className="w-full rounded-[var(--radius-lg)]"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ArrowRight() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <path d="M3.75 9H14.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9 3.75L14.25 9 9 14.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function CheckIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+      <circle cx="7" cy="7" r="7" fill="var(--color-accent)" opacity="0.12" />
+      <path d="M4.5 7L6.5 9L9.5 5.5" stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(npx tsc *)",
+      "Bash(xargs grep *)",
+      "Bash(npx shadcn@latest add @aceternity/apple-cards-carousel-demo)",
+      "Bash(npx shadcn@latest add @aceternity/apple-cards-carousel-demo --yes)"
+    ]
+  }
+}
