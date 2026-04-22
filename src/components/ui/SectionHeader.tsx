@@ -40,10 +40,10 @@ export function SectionHeader({
       <h2
         id={id}
         className={cn(
-          'text-fluid-section font-["Anton"] uppercase',
+          'text-fluid-section uppercase',
           dark ? 'text-white' : 'text-[var(--color-text)]'
         )}
-        style={{ fontFamily: 'var(--font-display)' }}
+        style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}
       >
         {title}
       </h2>

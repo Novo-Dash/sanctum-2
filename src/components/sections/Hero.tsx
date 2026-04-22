@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Button, ImagePlaceholder } from '@/components/ui'
+import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 interface HeroProps {
@@ -52,6 +52,21 @@ export function Hero({ onBookClick, className }: HeroProps) {
         className
       )}
     >
+      {/* Background image */}
+      <img
+        src="/imagem/foto 1.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+      />
+
+      {/* Dark overlay for text readability */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: 'rgba(0,0,0,0.62)' }}
+        aria-hidden="true"
+      />
+
       {/* Subtle accent gradient */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
@@ -66,29 +81,21 @@ export function Hero({ onBookClick, className }: HeroProps) {
 
           {/* Text — 7 cols */}
           <div className="md:col-span-7 flex flex-col gap-6">
-            <div ref={badgeRef} style={{ opacity: 0 }}>
-              <span className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-                <span className="block h-px w-10 bg-[var(--color-text-muted)] opacity-40" aria-hidden="true" />
-                5.0 ★ Google · 116 Active Members
-                <span className="block h-px w-10 bg-[var(--color-text-muted)] opacity-40" aria-hidden="true" />
-              </span>
-            </div>
-
             <h1
               ref={headingRef}
-              className="text-fluid-hero font-['Anton'] uppercase text-[var(--color-text)]"
-              style={{ fontFamily: 'var(--font-display)', opacity: 0 }}
+              className="text-fluid-hero uppercase text-white"
+              style={{ fontFamily: 'var(--font-display)', fontWeight: 700, opacity: 0 }}
             >
-              Start Jiu-Jitsu with a{' '}
+              Start Jiu-Jitsu with<br />
               <span style={{ color: 'rgba(var(--accent-rgb), 0.9)' }}>
-                World Champion
-              </span>{' '}
-              in Miami
+                a World Champion at
+              </span><br />
+              Sanctum, Miami
             </h1>
 
             <p
               ref={subtitleRef}
-              className="text-fluid-body text-[var(--color-text-secondary)] max-w-xl"
+              className="text-fluid-body text-white/75 max-w-xl"
               style={{ opacity: 0 }}
             >
               Sanctum's Head Coach won the Jiu-Jitsu World Championship in 2025, but that's not his greatest title. He says helping his students improve on and off the mats in a beginner-friendly gym is even better.
@@ -119,7 +126,7 @@ export function Hero({ onBookClick, className }: HeroProps) {
                 (item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]"
+                    className="flex items-center gap-2 text-sm text-white/60"
                   >
                     <CheckIcon />
                     {item}
@@ -129,13 +136,18 @@ export function Hero({ onBookClick, className }: HeroProps) {
             </ul>
           </div>
 
-          {/* Image — 5 cols */}
+          {/* Video — 5 cols */}
           <div ref={imageRef} className="md:col-span-5" style={{ opacity: 0 }}>
-            <ImagePlaceholder
-              label="Students training Brazilian Jiu-Jitsu at Sanctum Academy in Miami"
-              aspectRatio="4/5"
-              className="w-full rounded-[var(--radius-lg)]"
-            />
+            <div className="relative w-full overflow-hidden rounded-[var(--radius-lg)]" style={{ aspectRatio: '4/5' }}>
+              <video
+                src="/video/video 1.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>

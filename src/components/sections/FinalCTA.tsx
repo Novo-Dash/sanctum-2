@@ -18,8 +18,8 @@ export function FinalCTA({ onBookClick }: FinalCTAProps) {
 
         <h2
           id="final-cta-heading"
-          className="text-fluid-section font-['Anton'] uppercase text-white mb-4"
-          style={{ fontFamily: 'var(--font-display)' }}
+          className="text-fluid-section uppercase text-white mb-4"
+          style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}
         >
           Your First Class is Free
         </h2>

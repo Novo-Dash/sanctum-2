@@ -36,7 +36,9 @@ export function Navbar({ onBookClick }: NavbarProps) {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled ? 'navbar-scrolled' : 'bg-transparent'
+        scrolled
+          ? 'bg-[#0D0D0D] shadow-[0_2px_24px_rgba(0,0,0,0.4)]'
+          : 'bg-[#0D0D0D]/90 backdrop-blur-md'
       )}
     >
       <nav
@@ -46,41 +48,24 @@ export function Navbar({ onBookClick }: NavbarProps) {
         {/* Logo */}
         <a
           href="#main-content"
-          className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded-sm"
+          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded-sm"
           aria-label="Sanctum Jiu Jitsu Academy — back to top"
         >
-          <span
-            className={cn(
-              'text-xl tracking-tight transition-colors',
-              scrolled ? 'text-[var(--color-accent)]' : 'text-[var(--color-text)]'
-            )}
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            SANCTUM
-          </span>
-          <span
-            className={cn(
-              'hidden text-xs font-medium md:block transition-colors',
-              scrolled ? 'text-[var(--color-text-muted)]' : 'text-[var(--color-text-muted)]'
-            )}
-          >
-            BJJ
-          </span>
+          <img
+            src="/imagem/foto 2.webp"
+            alt="Sanctum Jiu Jitsu Academy"
+            className="h-16 w-auto object-contain"
+          />
         </a>
 
-        {/* Desktop nav links */}
-        <ul className="hidden md:flex items-center gap-8" role="list">
+        {/* Desktop pill nav links */}
+        <ul className="hidden md:flex items-center gap-2" role="list">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={cn(
-                  'text-xs font-bold uppercase tracking-wide transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded-sm',
-                  scrolled
-                    ? 'text-[var(--color-text)] hover:text-[var(--color-accent)]'
-                    : 'text-[var(--color-text)] hover:text-[var(--color-accent)]'
-                )}
+                className="inline-flex items-center rounded-full bg-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white hover:bg-white/20 active:bg-white/25 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               >
                 {link.label}
               </a>
@@ -93,7 +78,7 @@ export function Navbar({ onBookClick }: NavbarProps) {
           <button
             type="button"
             onClick={onBookClick}
-            className="inline-flex min-h-[40px] items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 text-xs font-bold uppercase tracking-wide text-white shadow-[0_4px_16px_rgba(var(--accent-rgb),0.30)] hover:bg-[var(--color-accent-hover)] hover:shadow-[0_6px_24px_rgba(var(--accent-rgb),0.45)] hover:scale-[1.02] active:scale-[0.97] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
+            className="inline-flex min-h-[36px] items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 text-xs font-bold uppercase tracking-wide text-white shadow-[0_4px_16px_rgba(var(--accent-rgb),0.35)] hover:bg-[var(--color-accent-hover)] hover:shadow-[0_6px_24px_rgba(var(--accent-rgb),0.50)] hover:scale-[1.02] active:scale-[0.97] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D0D0D]"
           >
             Book Free Class
           </button>
@@ -102,10 +87,7 @@ export function Navbar({ onBookClick }: NavbarProps) {
         {/* Mobile hamburger */}
         <button
           type="button"
-          className={cn(
-            'md:hidden flex h-[44px] w-[44px] items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]',
-            scrolled ? 'text-[var(--color-text)] hover:bg-[var(--color-surface-alt)]' : 'text-[var(--color-text)] hover:bg-[var(--color-surface-alt)]'
-          )}
+          className="md:hidden flex h-[44px] w-[44px] items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((v) => !v)}
@@ -130,17 +112,17 @@ export function Navbar({ onBookClick }: NavbarProps) {
       {/* Mobile drawer */}
       {menuOpen && (
         <div
-          className="md:hidden border-t border-[var(--color-border)] bg-white px-6 pb-6 pt-4 shadow-[var(--shadow-md)]"
+          className="md:hidden border-t border-white/10 bg-[#0D0D0D] px-6 pb-6 pt-4"
           role="dialog"
           aria-label="Navigation menu"
         >
-          <ul className="flex flex-col gap-1 mb-5" role="list">
+          <ul className="flex flex-col gap-2 mb-5" role="list">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="block rounded-lg px-4 py-3 text-sm font-bold uppercase tracking-wide text-[var(--color-text)] hover:bg-[var(--color-surface-alt)] hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+                  className="block rounded-full px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white bg-white/10 hover:bg-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
                 >
                   {link.label}
                 </a>
@@ -150,7 +132,7 @@ export function Navbar({ onBookClick }: NavbarProps) {
           <button
             type="button"
             onClick={() => { closeMenu(); onBookClick() }}
-            className="w-full inline-flex min-h-[44px] items-center justify-center rounded-full bg-[var(--color-accent)] text-xs font-bold uppercase tracking-wide text-white shadow-[0_4px_20px_rgba(var(--accent-rgb),0.30)] hover:bg-[var(--color-accent-hover)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
+            className="w-full inline-flex min-h-[44px] items-center justify-center rounded-full bg-[var(--color-accent)] text-xs font-bold uppercase tracking-wide text-white shadow-[0_4px_20px_rgba(var(--accent-rgb),0.30)] hover:bg-[var(--color-accent-hover)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
           >
             Book Free Class
           </button>

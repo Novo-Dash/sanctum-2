@@ -12,6 +12,7 @@ const PROGRAMS = [
     tag: 'kids' as ModalTag,
     bg: 'linear-gradient(160deg, #0F1A2E 0%, #0a0a0a 100%)',
     accent: '#1B3A8F',
+    image: '/imagem/foto 3.png',
   },
   {
     id: 'adult-beginners',
@@ -19,6 +20,7 @@ const PROGRAMS = [
     tag: 'adults' as ModalTag,
     bg: 'linear-gradient(160deg, #141414 0%, #0a0a0a 100%)',
     accent: '#1B3A8F',
+    image: '/imagem/foto 4.png',
   },
   {
     id: 'adult-advanced',
@@ -26,6 +28,7 @@ const PROGRAMS = [
     tag: 'adults' as ModalTag,
     bg: 'linear-gradient(160deg, #0D1E45 0%, #0a0a0a 100%)',
     accent: '#2B4FD4',
+    image: '/imagem/foto 5.png',
   },
   {
     id: 'self-defense',
@@ -33,6 +36,7 @@ const PROGRAMS = [
     tag: 'both' as ModalTag,
     bg: 'linear-gradient(160deg, #0F0F0F 0%, #080808 100%)',
     accent: '#1B3A8F',
+    image: '/imagem/foto 6.png',
   },
 ]
 
@@ -76,6 +80,7 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
             className="uppercase text-[var(--color-text)]"
             style={{
               fontFamily: 'var(--font-display)',
+              fontWeight: 700,
               fontSize: 'clamp(2rem, 3.5vw + 0.5rem, 4rem)',
               lineHeight: 1.05,
               letterSpacing: '-0.02em',
@@ -141,10 +146,15 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
                 {/* Background */}
                 <div className="absolute inset-0" style={{ background: prog.bg }} aria-hidden="true" />
 
-                {/* Foto badge */}
-                <div className="absolute top-4 left-4 z-10 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white/20 border border-white/10">
-                  FOTO
-                </div>
+                {/* Photo */}
+                {prog.image && (
+                  <img
+                    src={prog.image}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full object-cover object-top"
+                  />
+                )}
 
                 {/* Gradient overlay */}
                 <div
@@ -166,6 +176,7 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
                     className="uppercase text-white leading-none"
                     style={{
                       fontFamily: 'var(--font-display)',
+                      fontWeight: 700,
                       fontSize: 'clamp(2.25rem, 4vw, 3.5rem)',
                       letterSpacing: '-0.5px',
                       whiteSpace: 'pre-line',

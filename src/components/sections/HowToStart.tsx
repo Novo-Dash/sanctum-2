@@ -127,9 +127,10 @@ export function HowToStart({ onBookClick }: HowToStartProps) {
           </p>
           <h2
             id="how-heading"
-            className="font-['Anton'] uppercase text-[var(--color-text)]"
+            className="uppercase text-[var(--color-text)]"
             style={{
               fontFamily: 'var(--font-display)',
+              fontWeight: 700,
               fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
               lineHeight: 1.0,
               letterSpacing: '-1px',
@@ -200,7 +201,7 @@ export function HowToStart({ onBookClick }: HowToStartProps) {
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: 42,
-                    fontWeight: 400,
+                    fontWeight: 700,
                     lineHeight: 1.0,
                     color: step.text,
                     marginBottom: 12,

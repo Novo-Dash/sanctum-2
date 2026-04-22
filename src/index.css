@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
+/* ─── Chandler Mountain Typeface ────────────────────────────────── */
+@font-face {
+  font-family: 'ChandlerMountain';
+  src: url('/fonte/chandler/ChandlerMountain-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ChandlerMountain';
+  src: url('/fonte/chandler/ChandlerMountain-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ChandlerMountain';
+  src: url('/fonte/chandler/ChandlerMountain-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ChandlerMountain';
+  src: url('/fonte/chandler/ChandlerMountain-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── Design Tokens ─────────────────────────────────────────────── */
 :root {
   /* Surfaces */
@@ -30,7 +63,7 @@
   --color-danger:          #DC2626;
 
   /* Typography */
-  --font-display: 'Anton', system-ui, sans-serif;
+  --font-display: 'ChandlerMountain', system-ui, sans-serif;
   --font-body:    'Inter', system-ui, sans-serif;
 
   /* Border radius */
@@ -131,25 +164,6 @@ body {
 ::-webkit-scrollbar-track  { background: var(--color-bg); }
 ::-webkit-scrollbar-thumb  { background: var(--color-accent); border-radius: 3px; }
 
-/* ─── Glass Navbar ──────────────────────────────────────────────── */
-.navbar-scrolled {
-  background-color: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
-}
-
-@supports not (backdrop-filter: blur(1px)) {
-  .navbar-scrolled { background-color: rgba(255,255,255,0.98) !important; }
-}
-
-@media (prefers-contrast: more) {
-  .navbar-scrolled {
-    backdrop-filter: none !important;
-    background-color: var(--color-bg) !important;
-  }
-}
 
 /* ─── Grain Overlay ─────────────────────────────────────────────── */
 .grain::after {
