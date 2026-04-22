@@ -30,21 +30,6 @@ export function FinalCTA({ onBookClick }: FinalCTAProps) {
       {/* Dark overlay */}
       <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.70)', zIndex: 1 }} />
       <div className="mx-auto max-w-[1280px] px-6 md:px-10 text-center" style={{ position: 'relative', zIndex: 2 }}>
-        <img
-          src="/logo-bjj.svg"
-          alt="Sanctum BJJ"
-          className="mx-auto mb-8"
-          style={{ height: '72px', width: 'auto' }}
-          loading="lazy"
-          decoding="async"
-        />
-
-        <p className="mb-5 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/30">
-          <span className="block h-px w-8 bg-white opacity-30" aria-hidden="true" />
-          Zero Risk
-          <span className="block h-px w-8 bg-white opacity-30" aria-hidden="true" />
-        </p>
-
         <h2
           id="final-cta-heading"
           className="text-fluid-section uppercase text-white mb-4"

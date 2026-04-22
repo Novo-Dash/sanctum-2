@@ -36,25 +36,22 @@ export function Footer() {
             {/* Social icons */}
             <div className="flex gap-3">
               <a
-                href="#"
+                href="https://www.instagram.com/sanctumjiujitsu?igsh=MTNjbHBzOG9oMWIzbQ=="
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               >
                 <InstagramIcon />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61575493373445"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Facebook"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
               >
                 <FacebookIcon />
-              </a>
-              <a
-                href="#"
-                aria-label="YouTube"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/50 hover:text-white hover:border-white/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
-              >
-                <YoutubeIcon />
               </a>
             </div>
           </div>
@@ -151,11 +148,3 @@ function FacebookIcon() {
   )
 }
 
-function YoutubeIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" strokeLinecap="round" strokeLinejoin="round" />
-      <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
