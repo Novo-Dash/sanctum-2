@@ -85,7 +85,7 @@ function LandingPage() {
         <FinalCTA onBookClick={() => handleBookClick()} />
       </main>
 
-      <Footer onBookClick={() => handleBookClick()} />
+      <Footer />
 
       <BookingModal isOpen={isOpen} defaultTag={defaultTag} onClose={close} />
       <StickyCTABar onBookClick={() => handleBookClick()} />

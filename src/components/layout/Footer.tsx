@@ -1,8 +1,4 @@
-interface FooterProps {
-  onBookClick: () => void
-}
-
-export function Footer({ onBookClick }: FooterProps) {
+export function Footer() {
   return (
     <footer className="bg-[var(--color-text)] overflow-hidden">
 
@@ -117,14 +113,6 @@ export function Footer({ onBookClick }: FooterProps) {
   )
 }
 
-function ArrowRight() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <path d="M3.75 9H14.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M9 3.75L14.25 9 9 14.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
 
 function MailIcon() {
   return (
