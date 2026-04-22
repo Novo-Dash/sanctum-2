@@ -80,7 +80,7 @@ function LandingPage() {
         <HowToStart onBookClick={() => handleBookClick()} />
         <OurSchedule />
         <OurInstructors onBookClick={() => handleBookClick()} />
-        <MoreOfUs />
+        <MoreOfUs onBookClick={() => handleBookClick()} />
         <FAQ />
         <FinalCTA onBookClick={() => handleBookClick()} />
       </main>

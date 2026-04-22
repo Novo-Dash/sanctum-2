@@ -6,63 +6,18 @@ export function Footer({ onBookClick }: FooterProps) {
   return (
     <footer className="bg-[var(--color-text)] overflow-hidden">
 
-      {/* Marquee */}
-      <div className="border-b border-white/[0.06] py-6 overflow-hidden relative">
-        <div
-          className="pointer-events-none absolute left-0 inset-y-0 w-24 z-10"
-          style={{ background: 'linear-gradient(to right, var(--color-text), transparent)' }}
-          aria-hidden="true"
+      {/* Full-width map */}
+      <div style={{ width: '100%', height: '400px', lineHeight: 0 }}>
+        <iframe
+          src="https://maps.google.com/maps?q=Sanctum+BJJ+Miami&output=embed"
+          width="100%"
+          height="400"
+          style={{ border: 0, display: 'block', filter: 'grayscale(30%) contrast(1.05)' }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Sanctum BJJ Miami location"
         />
-        <div
-          className="pointer-events-none absolute right-0 inset-y-0 w-24 z-10"
-          style={{ background: 'linear-gradient(to left, var(--color-text), transparent)' }}
-          aria-hidden="true"
-        />
-        <div
-          className="flex whitespace-nowrap"
-          style={{ animation: 'footer-marquee 40s linear infinite' }}
-          aria-hidden="true"
-        >
-          {Array.from({ length: 8 }).map((_, i) => (
-            <span
-              key={i}
-              className="px-10 uppercase select-none"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(3.5rem, 10vw, 7rem)',
-                letterSpacing: '-0.02em',
-                color: 'rgba(255,255,255,0.04)',
-              }}
-            >
-              SANCTUM · BJJ · MIAMI ·
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* CTA headline */}
-      <div className="border-b border-white/[0.06]">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-16 text-center">
-          <h2
-            className="uppercase text-white mb-8"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-              lineHeight: 1.0,
-              letterSpacing: '-0.5px',
-            }}
-          >
-            Book Your Free Trial Class<br />with a World Champion
-          </h2>
-          <button
-            type="button"
-            onClick={onBookClick}
-            className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-[var(--color-accent)] px-8 text-sm font-bold uppercase tracking-wide text-white shadow-[0_4px_20px_rgba(var(--accent-rgb),0.40)] hover:bg-[var(--color-accent-hover)] hover:shadow-[0_6px_28px_rgba(var(--accent-rgb),0.55)] hover:scale-[1.02] active:scale-[0.97] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-text)]"
-          >
-            Book Free Trial Class
-            <ArrowRight />
-          </button>
-        </div>
       </div>
 
       {/* Main content */}
@@ -71,12 +26,11 @@ export function Footer({ onBookClick }: FooterProps) {
 
           {/* Brand — 6 cols */}
           <div className="md:col-span-6">
-            <p
-              className="text-xl text-white mb-4"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              Sanctum Jiu-Jitsu Academy
-            </p>
+            <img
+              src="/foto1.webp"
+              alt="Sanctum BJJ"
+              style={{ height: '60px', width: 'auto', marginBottom: '1rem' }}
+            />
             <p className="text-sm text-white/50 leading-relaxed mb-6 max-w-sm">
               Sanctum Jiu-Jitsu Academy is one of the most trusted names in martial arts around the world. Our values, commitment to excellence, and dedication to jiu-jitsu have set us apart as a leader in the Florida area martial arts community.
             </p>
@@ -159,12 +113,6 @@ export function Footer({ onBookClick }: FooterProps) {
         </div>
       </div>
 
-      <style>{`
-        @keyframes footer-marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-      `}</style>
     </footer>
   )
 }

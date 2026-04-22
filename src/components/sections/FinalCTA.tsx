@@ -7,9 +7,36 @@ export function FinalCTA({ onBookClick }: FinalCTAProps) {
     <section
       id="final-cta"
       aria-labelledby="final-cta-heading"
-      className="bg-[var(--color-text)] py-24"
+      className="relative overflow-hidden py-24"
     >
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 text-center">
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="none"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: 0,
+        }}
+      >
+        <source src="/video/video2.mov" type="video/mp4" />
+      </video>
+      {/* Dark overlay */}
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.70)', zIndex: 1 }} />
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 text-center" style={{ position: 'relative', zIndex: 2 }}>
+        <img
+          src="/logo-bjj.svg"
+          alt="Sanctum BJJ"
+          className="mx-auto mb-8"
+          style={{ height: '72px', width: 'auto' }}
+        />
+
         <p className="mb-5 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/30">
           <span className="block h-px w-8 bg-white opacity-30" aria-hidden="true" />
           Zero Risk

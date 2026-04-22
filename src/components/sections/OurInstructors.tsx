@@ -1,4 +1,4 @@
-import { Section, SectionHeader, Button, ImagePlaceholder } from '@/components/ui'
+import { Section, Button } from '@/components/ui'
 
 interface OurInstructorsProps {
   onBookClick: () => void
@@ -10,20 +10,36 @@ export function OurInstructors({ onBookClick }: OurInstructorsProps) {
       <div className="grid items-center gap-14 md:grid-cols-2">
         {/* Photo */}
         <div>
-          <ImagePlaceholder
-            label="Prof. Roosevelt Souza, Black Belt and World Champion Head Coach at Sanctum BJJ Miami"
-            aspectRatio="4/5"
+          <img
+            src="/professor.png"
+            alt="Prof. Roosevelt Souza, Black Belt and World Champion Head Coach at Sanctum BJJ Miami"
             className="w-full rounded-[var(--radius-lg)]"
+            style={{ aspectRatio: '4/5', objectFit: 'cover', display: 'block' }}
           />
         </div>
 
         {/* Bio */}
         <div className="flex flex-col gap-8">
-          <SectionHeader
-            id="instructors-heading"
-            label="Our Instructors"
-            title="Roosevelt Souza, our World Champion head coach"
-          />
+          <div className="flex flex-col gap-2">
+            <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+              Our Instructors
+            </p>
+            <h2
+              id="instructors-heading"
+              className="uppercase"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontWeight: 800,
+                fontSize: 'clamp(2rem, 3.5vw + 0.5rem, 3.5rem)',
+                lineHeight: 1.05,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              <span style={{ color: 'var(--color-accent)', display: 'block' }}>ROOSEVELT SOUZA</span>
+              <span style={{ color: 'var(--color-text)', display: 'block' }}>our World Champion</span>
+              <span style={{ color: 'var(--color-text)', display: 'block' }}>head coach</span>
+            </h2>
+          </div>
 
           <p className="text-fluid-body text-[var(--color-text-secondary)] leading-relaxed">
             Roosevelt Sousa is one of the leading names in today's heavyweight Jiu-Jitsu scene. An international athlete with titles from IBJJF, ADCC, and AJP, he built his career through discipline and perseverance. Before competing on the world stage, he sold water on the streets to fund his tournaments and overcame financial challenges to become a world champion. Today, beyond being an elite athlete, he's the Head Coach of Sanctum BJJ, known for being a present professor who inspires students of all levels both on and off the mat.

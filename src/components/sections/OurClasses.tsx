@@ -40,8 +40,7 @@ const PROGRAMS = [
   },
 ]
 
-const PAGES = 2
-const GAP = 20 // px — matches gap-5
+const GAP = 20 // px
 
 export function OurClasses({ onBookClick }: OurClassesProps) {
   const handleBook = useCallback(
@@ -54,20 +53,28 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
   const viewportRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef(0)
 
+  const isMobile = vpWidth > 0 && vpWidth < 768
+  const cardsPerPage = isMobile ? 1 : 2
+  const totalPages = Math.ceil(PROGRAMS.length / cardsPerPage)
+  const cardWidth = isMobile ? vpWidth : (vpWidth - GAP) / 2
+
   useEffect(() => {
     const el = viewportRef.current
     if (!el) return
     setVpWidth(el.offsetWidth)
-    const ro = new ResizeObserver(([entry]) => setVpWidth(entry.contentRect.width))
+    const ro = new ResizeObserver(([entry]) => {
+      setVpWidth(entry.contentRect.width)
+      setPage(0)
+    })
     ro.observe(el)
     return () => ro.disconnect()
   }, [])
 
   const goTo = useCallback((p: number) => {
-    setPage(Math.max(0, Math.min(PAGES - 1, p)))
-  }, [])
+    setPage(Math.max(0, Math.min(totalPages - 1, p)))
+  }, [totalPages])
 
-  const getOffset = (p: number) => p * (vpWidth + GAP)
+  const getOffset = (p: number) => p * (cardWidth + GAP)
 
   return (
     <section id="our-classes" aria-labelledby="classes-heading" className="py-24">
@@ -102,7 +109,7 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
             <button
               type="button"
               onClick={() => goTo(page + 1)}
-              disabled={page === PAGES - 1}
+              disabled={page === totalPages - 1}
               aria-label="Next"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] transition-all duration-200 hover:bg-[var(--color-text)] hover:text-white hover:border-[var(--color-text)] disabled:opacity-25 disabled:cursor-not-allowed"
             >
@@ -138,7 +145,7 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
                 onClick={handleBook(prog.tag)}
                 className="group/card relative shrink-0 cursor-pointer overflow-hidden rounded-2xl shadow-2xl text-left"
                 style={{
-                  width: `calc(50% - ${GAP / 2}px)`,
+                  width: cardWidth > 0 ? cardWidth : `calc(50% - ${GAP / 2}px)`,
                   aspectRatio: '3/4',
                 }}
                 aria-label={`Book ${prog.title.replace('\n', ' ')} class`}
@@ -207,7 +214,7 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
 
         {/* Dot indicators */}
         <div className="mt-6 flex justify-center gap-2" aria-hidden="true">
-          {Array.from({ length: PAGES }).map((_, i) => (
+          {Array.from({ length: totalPages }).map((_, i) => (
             <button
               key={i}
               type="button"
