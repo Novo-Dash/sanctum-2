@@ -10,12 +10,19 @@ export function OurInstructors({ onBookClick }: OurInstructorsProps) {
       <div className="grid items-center gap-14 md:grid-cols-2">
         {/* Photo */}
         <div>
-          <img
-            src="/professor.png"
-            alt="Prof. Roosevelt Souza, Black Belt and World Champion Head Coach at Sanctum BJJ Miami"
-            className="w-full rounded-[var(--radius-lg)]"
-            style={{ aspectRatio: '4/5', objectFit: 'cover', display: 'block' }}
-          />
+          <picture>
+            <source srcSet="/professor.webp" type="image/webp" />
+            <img
+              src="/professor.png"
+              alt="Prof. Roosevelt Souza, Black Belt and World Champion Head Coach at Sanctum BJJ Miami"
+              className="w-full rounded-[var(--radius-lg)]"
+              style={{ aspectRatio: '4/5', objectFit: 'cover', display: 'block' }}
+              width={600}
+              height={750}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
 
         {/* Bio */}

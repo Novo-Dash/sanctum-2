@@ -160,6 +160,8 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
                     alt=""
                     aria-hidden="true"
                     className="absolute inset-0 h-full w-full object-cover object-top"
+                    loading="lazy"
+                    decoding="async"
                   />
                 )}
 

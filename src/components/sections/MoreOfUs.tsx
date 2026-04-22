@@ -6,27 +6,27 @@ interface MoreOfUsProps {
 }
 
 const col1Images = [
-  { src: '/imagens/gallery/1.JPG',    alt: 'Sanctum BJJ training 1' },
-  { src: '/imagens/gallery/2.jpeg',   alt: 'Sanctum BJJ training 2' },
-  { src: '/imagens/gallery/3.JPG',    alt: 'Sanctum BJJ training 3' },
-  { src: '/imagens/gallery/4.jpeg',   alt: 'Sanctum BJJ training 4' },
-  { src: '/imagens/gallery/5.JPG',    alt: 'Sanctum BJJ training 5' },
-  { src: '/imagens/gallery/6.jpeg',   alt: 'Sanctum BJJ training 6' },
-  { src: '/imagens/gallery/7.JPG',    alt: 'Sanctum BJJ training 7' },
-  { src: '/imagens/gallery/8.JPG',    alt: 'Sanctum BJJ training 8' },
-  { src: '/imagens/gallery/9.JPG',    alt: 'Sanctum BJJ training 9' },
+  { src: '/imagens/gallery/1.webp',   alt: 'Sanctum BJJ training 1' },
+  { src: '/imagens/gallery/2.webp',   alt: 'Sanctum BJJ training 2' },
+  { src: '/imagens/gallery/3.webp',   alt: 'Sanctum BJJ training 3' },
+  { src: '/imagens/gallery/4.webp',   alt: 'Sanctum BJJ training 4' },
+  { src: '/imagens/gallery/5.webp',   alt: 'Sanctum BJJ training 5' },
+  { src: '/imagens/gallery/6.webp',   alt: 'Sanctum BJJ training 6' },
+  { src: '/imagens/gallery/7.webp',   alt: 'Sanctum BJJ training 7' },
+  { src: '/imagens/gallery/8.webp',   alt: 'Sanctum BJJ training 8' },
+  { src: '/imagens/gallery/9.webp',   alt: 'Sanctum BJJ training 9' },
 ]
 
 const col2Images = [
-  { src: '/imagens/gallery/10.JPG',   alt: 'Sanctum BJJ class 1' },
-  { src: '/imagens/gallery/11.jpeg',  alt: 'Sanctum BJJ class 2' },
-  { src: '/imagens/gallery/12.jpeg',  alt: 'Sanctum BJJ class 3' },
-  { src: '/imagens/gallery/13.jpeg',  alt: 'Sanctum BJJ class 4' },
-  { src: '/imagens/gallery/14.jpeg',  alt: 'Sanctum BJJ class 5' },
-  { src: '/imagens/gallery/15.JPG',   alt: 'Sanctum BJJ class 6' },
-  { src: '/imagens/gallery/16.JPG',   alt: 'Sanctum BJJ class 7' },
-  { src: '/imagens/gallery/17.JPG',   alt: 'Sanctum BJJ class 8' },
-  { src: '/imagens/gallery/18.JPG',   alt: 'Sanctum BJJ class 9' },
+  { src: '/imagens/gallery/10.webp',  alt: 'Sanctum BJJ class 1' },
+  { src: '/imagens/gallery/11.webp',  alt: 'Sanctum BJJ class 2' },
+  { src: '/imagens/gallery/12.webp',  alt: 'Sanctum BJJ class 3' },
+  { src: '/imagens/gallery/13.webp',  alt: 'Sanctum BJJ class 4' },
+  { src: '/imagens/gallery/14.webp',  alt: 'Sanctum BJJ class 5' },
+  { src: '/imagens/gallery/15.webp',  alt: 'Sanctum BJJ class 6' },
+  { src: '/imagens/gallery/16.webp',  alt: 'Sanctum BJJ class 7' },
+  { src: '/imagens/gallery/17.webp',  alt: 'Sanctum BJJ class 8' },
+  { src: '/imagens/gallery/18.webp',  alt: 'Sanctum BJJ class 9' },
 ]
 
 function ArrowIcon() {

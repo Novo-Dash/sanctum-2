@@ -25,7 +25,7 @@ export function FinalCTA({ onBookClick }: FinalCTAProps) {
           zIndex: 0,
         }}
       >
-        <source src="/video/video2.mov" type="video/mp4" />
+        <source src="/video/video2-opt.mp4" type="video/mp4" />
       </video>
       {/* Dark overlay */}
       <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.70)', zIndex: 1 }} />
@@ -35,6 +35,8 @@ export function FinalCTA({ onBookClick }: FinalCTAProps) {
           alt="Sanctum BJJ"
           className="mx-auto mb-8"
           style={{ height: '72px', width: 'auto' }}
+          loading="lazy"
+          decoding="async"
         />
 
         <p className="mb-5 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/30">

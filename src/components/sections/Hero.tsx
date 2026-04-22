@@ -53,12 +53,18 @@ export function Hero({ onBookClick, className }: HeroProps) {
       )}
     >
       {/* Background image */}
-      <img
-        src="/imagem/foto 1.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-      />
+      <picture className="pointer-events-none absolute inset-0 h-full w-full">
+        <source srcSet="/imagem/foto 1.webp" type="image/webp" />
+        <img
+          src="/imagem/foto 1.png"
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          loading="eager"
+          decoding="sync"
+          className="h-full w-full object-cover object-center"
+        />
+      </picture>
 
       {/* Dark overlay for text readability */}
       <div
@@ -140,13 +146,16 @@ export function Hero({ onBookClick, className }: HeroProps) {
           <div ref={imageRef} className="md:col-span-5" style={{ opacity: 0 }}>
             <div className="relative w-full overflow-hidden rounded-[var(--radius-lg)]" style={{ aspectRatio: '4/5' }}>
               <video
-                src="/video/video 1.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
+                width={800}
+                height={1000}
                 className="absolute inset-0 h-full w-full object-cover"
-              />
+              >
+                <source src="/video/video1-opt.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>

@@ -26,6 +26,8 @@ export function Footer() {
               src="/foto1.webp"
               alt="Sanctum BJJ"
               style={{ height: '60px', width: 'auto', marginBottom: '1rem' }}
+              loading="lazy"
+              decoding="async"
             />
             <p className="text-sm text-white/50 leading-relaxed mb-6 max-w-sm">
               Sanctum Jiu-Jitsu Academy is one of the most trusted names in martial arts around the world. Our values, commitment to excellence, and dedication to jiu-jitsu have set us apart as a leader in the Florida area martial arts community.
