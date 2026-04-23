@@ -7,14 +7,6 @@ interface OurClassesProps {
 
 const PROGRAMS = [
   {
-    id: 'kids-bjj',
-    title: 'Kids',
-    tag: 'kids' as ModalTag,
-    bg: 'linear-gradient(160deg, #0F1A2E 0%, #0a0a0a 100%)',
-    accent: '#1B3A8F',
-    image: '/imagem/foto 3.webp',
-  },
-  {
     id: 'adult-beginners',
     title: 'Adult\nBeginners',
     tag: 'adults' as ModalTag,
@@ -23,12 +15,12 @@ const PROGRAMS = [
     image: '/imagem/foto 4.webp',
   },
   {
-    id: 'adult-advanced',
-    title: 'Adult\nAdvanced',
-    tag: 'adults' as ModalTag,
-    bg: 'linear-gradient(160deg, #0D1E45 0%, #0a0a0a 100%)',
-    accent: '#2B4FD4',
-    image: '/imagem/foto 5.webp',
+    id: 'kids-bjj',
+    title: 'Kids',
+    tag: 'kids' as ModalTag,
+    bg: 'linear-gradient(160deg, #0F1A2E 0%, #0a0a0a 100%)',
+    accent: '#1B3A8F',
+    image: '/imagem/foto 3.webp',
   },
   {
     id: 'self-defense',
@@ -37,6 +29,14 @@ const PROGRAMS = [
     bg: 'linear-gradient(160deg, #0F0F0F 0%, #080808 100%)',
     accent: '#1B3A8F',
     image: '/imagem/foto 6.webp',
+  },
+  {
+    id: 'adult-advanced',
+    title: 'Adult\nAdvanced',
+    tag: 'adults' as ModalTag,
+    bg: 'linear-gradient(160deg, #0D1E45 0%, #0a0a0a 100%)',
+    accent: '#2B4FD4',
+    image: '/imagem/foto 5.webp',
   },
 ]
 
@@ -184,7 +184,8 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
                 className="group/card relative shrink-0 cursor-pointer overflow-hidden rounded-2xl shadow-2xl text-left"
                 style={{
                   width: cardWidth > 0 ? cardWidth : `calc(50% - ${GAP / 2}px)`,
-                  aspectRatio: '4/5',
+                  height: isMobile && cardWidth > 0 ? cardWidth * 1.25 - 1 : undefined,
+                  aspectRatio: isMobile ? undefined : '4/5',
                   scrollSnapAlign: 'start',
                 } as React.CSSProperties}
                 aria-label={`Book ${prog.title.replace('\n', ' ')} class`}
