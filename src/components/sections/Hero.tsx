@@ -12,7 +12,6 @@ export function Hero({ onBookClick, className }: HeroProps) {
   const headingRef = useRef<HTMLHeadingElement>(null)
   const subtitleRef= useRef<HTMLParagraphElement>(null)
   const ctaRef     = useRef<HTMLDivElement>(null)
-  const trustRef   = useRef<HTMLUListElement>(null)
   const imageRef   = useRef<HTMLDivElement>(null)
   const ctxRef     = useRef<{ revert: () => void } | null>(null)
 
@@ -30,7 +29,6 @@ export function Hero({ onBookClick, className }: HeroProps) {
           .fromTo(headingRef.current,  { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: 0.9 }, 0.27)
           .fromTo(subtitleRef.current, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.42)
           .fromTo(ctaRef.current,      { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.54)
-          .fromTo(trustRef.current,    { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 0.65)
           .fromTo(imageRef.current,    { autoAlpha: 0, scale: 1.03 }, { autoAlpha: 1, scale: 1, duration: 1.1 }, 0.1)
       })
     }
@@ -56,7 +54,7 @@ export function Hero({ onBookClick, className }: HeroProps) {
       <picture className="pointer-events-none absolute inset-0 h-full w-full">
         <source srcSet="/imagem/foto 1.webp" type="image/webp" />
         <img
-          src="/imagem/foto 1.png"
+          src="/imagem/foto 1.webp"
           alt=""
           aria-hidden="true"
           fetchPriority="high"
@@ -93,16 +91,14 @@ export function Hero({ onBookClick, className }: HeroProps) {
               style={{ fontFamily: 'var(--font-display)', fontWeight: 700, opacity: 0 }}
             >
               Start Jiu-Jitsu with<br />
-              <span style={{ color: 'rgba(var(--accent-rgb), 0.9)' }}>
-                a World Champion at
-              </span><br />
+              a World Champion at<br />
               Sanctum, Miami
             </h1>
 
             <p
               ref={subtitleRef}
               className="text-fluid-body text-white/75 max-w-xl"
-              style={{ opacity: 0 }}
+              style={{ opacity: 0, fontSize: 'clamp(0.875rem, 0.3vw + 0.8rem, 1rem)', fontFamily: 'var(--font-body)' }}
             >
               Sanctum's Head Coach won the Jiu-Jitsu World Championship in 2025, but that's not his greatest title. He says helping his students improve on and off the mats in a beginner-friendly gym is even better.
             </p>
@@ -112,34 +108,7 @@ export function Hero({ onBookClick, className }: HeroProps) {
                 Book my first free trial class
                 <ArrowRight />
               </Button>
-              <Button
-                as="a"
-                href="#our-classes"
-                variant="ghost"
-                size="lg"
-              >
-                See Programs
-              </Button>
             </div>
-
-            <ul
-              ref={trustRef}
-              className="flex flex-wrap gap-x-6 gap-y-2"
-              role="list"
-              style={{ opacity: 0 }}
-            >
-              {['No experience needed', 'No long-term contracts', 'Kids & Adults programs'].map(
-                (item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-2 text-sm text-white/60"
-                  >
-                    <CheckIcon />
-                    {item}
-                  </li>
-                )
-              )}
-            </ul>
           </div>
 
           {/* Video — 5 cols */}
@@ -169,15 +138,6 @@ function ArrowRight() {
     <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true">
       <path d="M3.75 9H14.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M9 3.75L14.25 9 9 14.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function CheckIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <circle cx="7" cy="7" r="7" fill="var(--color-accent)" opacity="0.12" />
-      <path d="M4.5 7L6.5 9L9.5 5.5" stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }

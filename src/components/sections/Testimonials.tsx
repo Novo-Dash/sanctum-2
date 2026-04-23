@@ -10,7 +10,7 @@ export function Testimonials() {
     <section id="testimonials" aria-labelledby="testimonials-heading" className="py-24 bg-[var(--color-surface-alt)] overflow-hidden">
 
       {/* Header */}
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 testimonials-header">
         <SectionHeader
           id="testimonials-heading"
           label="Testimonials"
@@ -52,6 +52,12 @@ export function Testimonials() {
         }
         .reviews-track:hover {
           animation-play-state: paused;
+        }
+        @media (max-width: 767px) {
+          .testimonials-header h2 {
+            font-size: clamp(1rem, 5.5vw, 2rem);
+            white-space: nowrap;
+          }
         }
       `}</style>
     </section>

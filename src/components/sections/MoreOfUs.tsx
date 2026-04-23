@@ -37,12 +37,12 @@ function ArrowIcon() {
   )
 }
 
-function CarouselColumn({ images, colRef }: { images: typeof col1Images; colRef: React.RefObject<HTMLDivElement | null> }) {
+function CarouselColumn({ images, colRef, index }: { images: typeof col1Images; colRef: React.RefObject<HTMLDivElement | null>; index: number }) {
   const doubled = [...images, ...images]
 
   return (
     <div className="sanctum-carousel-container">
-      <div ref={colRef} className="sanctum-carousel-track">
+      <div ref={colRef} className={`sanctum-carousel-track sanctum-track-${index}`}>
         {doubled.map((img, i) => (
           <div key={i} style={{ borderRadius: '12px', overflow: 'hidden', flexShrink: 0 }}>
             <img
@@ -74,23 +74,14 @@ export function MoreOfUs({ onBookClick }: MoreOfUsProps) {
     const c2 = col2Ref.current
     if (!c1 || !c2) return
 
-    const mm = gsap.matchMedia()
-
-    mm.add('(min-width: 1024px)', () => {
-      const anim1 = gsap.to(c1, { y: '-50%', duration: 18, ease: 'none', repeat: -1 })
+    // Desktop only: GSAP vertical scroll
+    if (!window.matchMedia('(max-width: 767px)').matches) {
+      const a1 = gsap.to(c1, { y: '-50%', duration: 18, ease: 'none', repeat: -1 })
       gsap.set(c2, { y: '-50%' })
-      const anim2 = gsap.to(c2, { y: '0%', duration: 24, ease: 'none', repeat: -1 })
-      return () => { anim1.kill(); anim2.kill() }
-    })
-
-    mm.add('(max-width: 1023px)', () => {
-      const anim1 = gsap.to(c1, { x: '-50%', duration: 18, ease: 'none', repeat: -1 })
-      gsap.set(c2, { x: '-50%' })
-      const anim2 = gsap.to(c2, { x: '0%', duration: 24, ease: 'none', repeat: -1 })
-      return () => { anim1.kill(); anim2.kill() }
-    })
-
-    return () => mm.revert()
+      const a2 = gsap.to(c2, { y: '0%', duration: 24, ease: 'none', repeat: -1 })
+      return () => { a1.kill(); a2.kill() }
+    }
+    // Mobile: handled by CSS animation
   }, [])
 
   useEffect(() => {
@@ -126,13 +117,15 @@ export function MoreOfUs({ onBookClick }: MoreOfUsProps) {
         .sanctum-gallery-inner {
           display: flex;
           flex-direction: column;
-          gap: 4rem;
-          align-items: center;
+          gap: 2rem;
+          align-items: flex-start;
           min-height: 0;
         }
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) {
           .sanctum-gallery-inner {
             flex-direction: row;
+            align-items: center;
+            gap: 4rem;
             min-height: 720px;
           }
         }
@@ -142,45 +135,26 @@ export function MoreOfUs({ onBookClick }: MoreOfUsProps) {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          margin-top: 3rem;
         }
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) {
           .sanctum-gallery-left {
             width: 40%;
-            margin-top: 0;
           }
         }
+        /* Mobile: rows of horizontal images */
         .sanctum-gallery-right {
           flex: 1;
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 8px;
           overflow: hidden;
           height: auto;
-          padding: 2.5rem 0;
-        }
-        @media (min-width: 1024px) {
-          .sanctum-gallery-right {
-            flex-direction: row;
-            gap: 3rem;
-            height: 720px;
-            padding: 0;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
-          }
+          padding: 0;
         }
         .sanctum-carousel-container {
-          flex: none;
           overflow: hidden;
-          height: auto;
           width: 100%;
           position: relative;
-        }
-        @media (min-width: 1024px) {
-          .sanctum-carousel-container {
-            flex: 1;
-            height: 720px;
-          }
         }
         .sanctum-carousel-track {
           display: flex;
@@ -189,22 +163,43 @@ export function MoreOfUs({ onBookClick }: MoreOfUsProps) {
           width: max-content;
           will-change: transform;
         }
-        @media (min-width: 1024px) {
+        .sanctum-carousel-img {
+          object-fit: cover;
+          display: block;
+          width: 220px;
+          height: 150px;
+          border-radius: 12px;
+          flex-shrink: 0;
+        }
+        /* Desktop: columns of vertical images */
+        @media (min-width: 768px) {
+          .sanctum-gallery-right {
+            flex-direction: row;
+            gap: 1rem;
+            height: 520px;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+          }
+          .sanctum-carousel-container {
+            flex: 1;
+            height: 100%;
+          }
           .sanctum-carousel-track {
             flex-direction: column;
             width: 100%;
           }
-        }
-        .sanctum-carousel-img {
-          object-fit: cover;
-          display: block;
-          width: 280px;
-          height: 220px;
-          border-radius: 12px;
-        }
-        @media (min-width: 1024px) {
           .sanctum-carousel-img {
             width: 100%;
+            height: 300px;
+            flex-shrink: unset;
+          }
+        }
+        @media (min-width: 1024px) {
+          .sanctum-gallery-right {
+            gap: 3rem;
+            height: 720px;
+          }
+          .sanctum-carousel-img {
             height: 380px;
           }
         }
@@ -250,6 +245,22 @@ export function MoreOfUs({ onBookClick }: MoreOfUsProps) {
         .sanctum-gallery-btn:hover {
           background-color: var(--color-accent-hover);
         }
+        @media (max-width: 767px) {
+          @keyframes gallery-scroll-left {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+          }
+          @keyframes gallery-scroll-right {
+            from { transform: translateX(-50%); }
+            to   { transform: translateX(0%); }
+          }
+          .sanctum-track-1 {
+            animation: gallery-scroll-left 18s linear infinite;
+          }
+          .sanctum-track-2 {
+            animation: gallery-scroll-right 24s linear infinite;
+          }
+        }
       `}</style>
 
       <section
@@ -292,8 +303,8 @@ export function MoreOfUs({ onBookClick }: MoreOfUsProps) {
 
             {/* Right: infinite vertical carousel */}
             <div className="sanctum-gallery-right">
-              <CarouselColumn images={col1Images} colRef={col1Ref} />
-              <CarouselColumn images={col2Images} colRef={col2Ref} />
+              <CarouselColumn images={col1Images} colRef={col1Ref} index={1} />
+              <CarouselColumn images={col2Images} colRef={col2Ref} index={2} />
             </div>
 
           </div>

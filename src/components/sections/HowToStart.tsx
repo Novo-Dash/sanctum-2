@@ -212,13 +212,13 @@ export function HowToStart({ onBookClick }: HowToStartProps) {
                 >
                   {step.title}
                 </h3>
-                <p style={{ color: step.muted, fontSize: '0.9375rem', lineHeight: 1.7, maxWidth: 560 }}>
+                <p style={{ color: step.muted, fontSize: '0.9375rem', lineHeight: 1.7, maxWidth: 560, fontFamily: 'var(--font-body)' }}>
                   {step.desc}
                 </p>
 
                 {i === STEPS.length - 1 && (
                   <div style={{ marginTop: 32 }}>
-                    <Button variant="white" size="lg" onClick={handleOpen}>
+                    <Button variant="white" size="lg" onClick={handleOpen} className="!text-xs !px-4 md:!text-sm md:!px-8 whitespace-nowrap">
                       Schedule Free Trial Class
                       <ArrowRight />
                     </Button>

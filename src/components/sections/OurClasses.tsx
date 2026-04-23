@@ -12,7 +12,7 @@ const PROGRAMS = [
     tag: 'kids' as ModalTag,
     bg: 'linear-gradient(160deg, #0F1A2E 0%, #0a0a0a 100%)',
     accent: '#1B3A8F',
-    image: '/imagem/foto 3.png',
+    image: '/imagem/foto 3.webp',
   },
   {
     id: 'adult-beginners',
@@ -20,7 +20,7 @@ const PROGRAMS = [
     tag: 'adults' as ModalTag,
     bg: 'linear-gradient(160deg, #141414 0%, #0a0a0a 100%)',
     accent: '#1B3A8F',
-    image: '/imagem/foto 4.png',
+    image: '/imagem/foto 4.webp',
   },
   {
     id: 'adult-advanced',
@@ -28,7 +28,7 @@ const PROGRAMS = [
     tag: 'adults' as ModalTag,
     bg: 'linear-gradient(160deg, #0D1E45 0%, #0a0a0a 100%)',
     accent: '#2B4FD4',
-    image: '/imagem/foto 5.png',
+    image: '/imagem/foto 5.webp',
   },
   {
     id: 'self-defense',
@@ -36,7 +36,7 @@ const PROGRAMS = [
     tag: 'both' as ModalTag,
     bg: 'linear-gradient(160deg, #0F0F0F 0%, #080808 100%)',
     accent: '#1B3A8F',
-    image: '/imagem/foto 6.png',
+    image: '/imagem/foto 6.webp',
   },
 ]
 
@@ -51,7 +51,7 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
   const [page, setPage] = useState(0)
   const [vpWidth, setVpWidth] = useState(0)
   const viewportRef = useRef<HTMLDivElement>(null)
-  const touchStartX = useRef(0)
+  const dragRef = useRef({ dragging: false, startX: 0, scrollLeft: 0, moved: false })
 
   const isMobile = vpWidth > 0 && vpWidth < 768
   const cardsPerPage = isMobile ? 1 : 2
@@ -65,19 +65,36 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
     const ro = new ResizeObserver(([entry]) => {
       setVpWidth(entry.contentRect.width)
       setPage(0)
+      el.scrollLeft = 0
     })
     ro.observe(el)
     return () => ro.disconnect()
   }, [])
 
-  const goTo = useCallback((p: number) => {
-    setPage(Math.max(0, Math.min(totalPages - 1, p)))
-  }, [totalPages])
+  // sync dots with native scroll position
+  useEffect(() => {
+    const el = viewportRef.current
+    if (!el || cardWidth <= 0) return
+    const handleScroll = () => {
+      const pageSize = cardWidth + GAP
+      const p = Math.round(el.scrollLeft / pageSize)
+      setPage(Math.min(p, totalPages - 1))
+    }
+    el.addEventListener('scroll', handleScroll, { passive: true })
+    return () => el.removeEventListener('scroll', handleScroll)
+  }, [cardWidth, totalPages])
 
-  const getOffset = (p: number) => p * (cardWidth + GAP)
+  const goTo = useCallback((p: number) => {
+    const clamped = Math.max(0, Math.min(totalPages - 1, p))
+    setPage(clamped)
+    viewportRef.current?.scrollTo({
+      left: clamped * (cardWidth + GAP),
+      behavior: 'smooth',
+    })
+  }, [totalPages, cardWidth])
 
   return (
-    <section id="our-classes" aria-labelledby="classes-heading" className="py-24">
+    <section id="our-classes" aria-labelledby="classes-heading" className="py-16">
       <div className="mx-auto max-w-[1280px] px-6 md:px-10">
 
         {/* Header + arrows */}
@@ -118,36 +135,58 @@ export function OurClasses({ onBookClick }: OurClassesProps) {
           </div>
         </div>
 
-        {/* Viewport — clips the sliding track */}
+        {/* Native-scroll viewport — touch scrolls freely, arrows snap to pages */}
         <div
           ref={viewportRef}
-          className="overflow-hidden"
-          onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX }}
-          onTouchEnd={(e) => {
-            const diff = touchStartX.current - e.changedTouches[0].clientX
-            if (Math.abs(diff) > 50) goTo(diff > 0 ? page + 1 : page - 1)
+          className="overflow-x-auto [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing select-none"
+          style={{
+            scrollSnapType: 'x mandatory',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          } as React.CSSProperties}
+          onMouseDown={(e) => {
+            const el = viewportRef.current!
+            dragRef.current = { dragging: true, startX: e.pageX - el.offsetLeft, scrollLeft: el.scrollLeft, moved: false }
+            el.style.scrollSnapType = 'none'
+          }}
+          onMouseMove={(e) => {
+            const d = dragRef.current
+            if (!d.dragging) return
+            const el = viewportRef.current!
+            const x = e.pageX - el.offsetLeft
+            const walk = (x - d.startX) * 1.2
+            if (Math.abs(walk) > 4) d.moved = true
+            el.scrollLeft = d.scrollLeft - walk
+          }}
+          onMouseUp={() => {
+            const el = viewportRef.current!
+            dragRef.current.dragging = false
+            el.style.scrollSnapType = 'x mandatory'
+          }}
+          onMouseLeave={() => {
+            if (!dragRef.current.dragging) return
+            const el = viewportRef.current!
+            dragRef.current.dragging = false
+            el.style.scrollSnapType = 'x mandatory'
           }}
         >
-          {/* Sliding track */}
+
           <div
             className="flex"
-            style={{
-              gap: GAP,
-              transform: `translateX(-${getOffset(page)}px)`,
-              transition: 'transform 420ms cubic-bezier(0.16, 1, 0.3, 1)',
-              willChange: 'transform',
-            }}
+            style={{ gap: GAP }}
           >
             {PROGRAMS.map((prog) => (
               <button
                 key={prog.id}
                 type="button"
-                onClick={handleBook(prog.tag)}
+                onClick={(e) => { if (dragRef.current.moved) { e.preventDefault(); dragRef.current.moved = false; return } handleBook(prog.tag)() }}
                 className="group/card relative shrink-0 cursor-pointer overflow-hidden rounded-2xl shadow-2xl text-left"
                 style={{
                   width: cardWidth > 0 ? cardWidth : `calc(50% - ${GAP / 2}px)`,
-                  aspectRatio: '3/4',
-                }}
+                  aspectRatio: '4/5',
+                  scrollSnapAlign: 'start',
+                } as React.CSSProperties}
                 aria-label={`Book ${prog.title.replace('\n', ' ')} class`}
               >
                 {/* Background */}

@@ -10,7 +10,15 @@
       "Bash(npx tsc *)",
       "Bash(xargs grep *)",
       "Bash(npx shadcn@latest add @aceternity/apple-cards-carousel-demo)",
-      "Bash(npx shadcn@latest add @aceternity/apple-cards-carousel-demo --yes)"
+      "Bash(npx shadcn@latest add @aceternity/apple-cards-carousel-demo --yes)",
+      "Bash(ffmpeg -version)",
+      "Bash(magick -version)",
+      "Bash(node -e \"const sharp = require\\('sharp'\\); console.log\\('sharp ok'\\)\")",
+      "Bash(where ffmpeg:*)",
+      "Bash(winget install:*)",
+      "Bash(ffmpeg -i \"video1-opt.mp4\" -c:v libvpx-vp9 -crf 33 -b:v 0 -c:a libopus -b:a 96k -y \"video1-opt.webm\")",
+      "Bash(powershell:*)",
+      "Bash(find \"C:\\\\Users\\\\USUARIOG3\\\\Documents\\\\Novodash\\\\Sanctun\\\\sanctum-2\" -type f \\\\\\( -iname \"*.jpg\" -o -iname \"*.jpeg\" -o -iname \"*.png\" \\\\\\) -delete)"
     ]
   }
 }

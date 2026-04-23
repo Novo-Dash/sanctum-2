@@ -13,7 +13,7 @@ export function OurInstructors({ onBookClick }: OurInstructorsProps) {
           <picture>
             <source srcSet="/professor.webp" type="image/webp" />
             <img
-              src="/professor.png"
+              src="/professor.webp"
               alt="Prof. Roosevelt Souza, Black Belt and World Champion Head Coach at Sanctum BJJ Miami"
               className="w-full rounded-[var(--radius-lg)]"
               style={{ aspectRatio: '4/5', objectFit: 'cover', display: 'block' }}
@@ -33,13 +33,10 @@ export function OurInstructors({ onBookClick }: OurInstructorsProps) {
             </p>
             <h2
               id="instructors-heading"
-              className="uppercase"
+              className="uppercase text-fluid-hero"
               style={{
                 fontFamily: 'var(--font-display)',
-                fontWeight: 800,
-                fontSize: 'clamp(2rem, 3.5vw + 0.5rem, 3.5rem)',
-                lineHeight: 1.05,
-                letterSpacing: '-0.02em',
+                fontWeight: 700,
               }}
             >
               <span style={{ color: 'var(--color-accent)', display: 'block' }}>ROOSEVELT SOUZA</span>
@@ -48,7 +45,7 @@ export function OurInstructors({ onBookClick }: OurInstructorsProps) {
             </h2>
           </div>
 
-          <p className="text-fluid-body text-[var(--color-text-secondary)] leading-relaxed">
+          <p className="text-fluid-body text-[var(--color-text-secondary)] leading-relaxed" style={{ fontFamily: 'var(--font-body)' }}>
             Roosevelt Sousa is one of the leading names in today's heavyweight Jiu-Jitsu scene. An international athlete with titles from IBJJF, ADCC, and AJP, he built his career through discipline and perseverance. Before competing on the world stage, he sold water on the streets to fund his tournaments and overcame financial challenges to become a world champion. Today, beyond being an elite athlete, he's the Head Coach of Sanctum BJJ, known for being a present professor who inspires students of all levels both on and off the mat.
           </p>
 

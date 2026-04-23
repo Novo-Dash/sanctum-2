@@ -25,7 +25,7 @@ export function Footer() {
             <img
               src="/foto1.webp"
               alt="Sanctum BJJ"
-              style={{ height: '60px', width: 'auto', marginBottom: '1rem' }}
+              style={{ height: '100px', width: 'auto', marginBottom: '1rem' }}
               loading="lazy"
               decoding="async"
             />

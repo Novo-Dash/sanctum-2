@@ -35,10 +35,20 @@ export function FinalCTA({ onBookClick }: FinalCTAProps) {
           className="text-fluid-section uppercase text-white mb-4"
           style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}
         >
-          Your First Class is Free
+          Your First Class{' '}
+          <span
+            style={{
+              background: 'var(--color-accent)',
+              borderRadius: '6px',
+              padding: '0 0.25em',
+              display: 'inline-block',
+            }}
+          >
+            is Free
+          </span>
         </h2>
 
-        <p className="mb-10 text-fluid-sub text-white/50 max-w-lg mx-auto leading-relaxed">
+        <p className="mb-10 text-fluid-sub text-white max-w-lg mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-body)' }}>
           No experience needed. No contracts. Just show up and discover what
           Brazilian Jiu-Jitsu can do for you and your family.
         </p>
@@ -52,7 +62,7 @@ export function FinalCTA({ onBookClick }: FinalCTAProps) {
           <ArrowRight />
         </button>
 
-        <p className="mt-6 text-sm text-white/25">
+        <p className="mt-6 text-sm text-white" style={{ fontFamily: 'var(--font-body)' }}>
           Join 116+ members training in Miami
         </p>
       </div>

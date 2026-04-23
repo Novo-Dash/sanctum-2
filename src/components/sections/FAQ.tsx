@@ -79,7 +79,7 @@ export function FAQ() {
                       hidden={!isOpen}
                       className="px-6 pb-5"
                     >
-                      <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                      <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed" style={{ fontFamily: 'var(--font-body)' }}>
                         {item.answer}
                       </p>
                     </dd>
