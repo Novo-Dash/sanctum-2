@@ -18,22 +18,28 @@ export function SiteFooter() {
   return (
     <footer className="bts-paper-grid-ink bg-ink pt-20 text-on-ink md:pt-28">
       <div className="mx-auto max-w-[1280px] px-5 md:px-10">
-        <div data-bts-reveal>
-          <Tag variant="onink">See you on the mats</Tag>
-        </div>
+        {/* the closing argument, on a page torn out of an exercise book */}
+        <div
+          className="bts-notebook mx-auto max-w-[54rem] px-6 py-12 text-center md:px-14 md:py-16"
+          data-bts-reveal
+        >
+          <div className="flex justify-center">
+            <Tag>See you on the mats</Tag>
+          </div>
 
-        <p className="bts-h2 mt-5 max-w-[24ch] text-on-ink" data-bts-lines>
-          <span className="text-accent-wash">{FOOTER.body[0]}</span>
-          {' Back to School is the perfect opportunity to help your child start the new school year with more confidence.'}
-        </p>
+          <p className="bts-h2 bts-balance mx-auto mt-6 max-w-[26ch] text-ink">
+            <span className="text-accent">{FOOTER.body[0]}</span>
+            {' Back to School is the perfect opportunity to help your child start the new school year with more confidence.'}
+          </p>
 
-        <p className="bts-lead mt-6 max-w-[46ch] text-on-ink-dim" data-bts-reveal>
-          Click any button on this page to book a free trial class and experience the benefits of
-          Brazilian Jiu-Jitsu firsthand.
-        </p>
+          <p className="bts-lead bts-balance mx-auto mt-6 max-w-[48ch] text-body">
+            Click any button on this page to book a free trial class and experience the benefits of
+            Brazilian Jiu-Jitsu firsthand.
+          </p>
 
-        <div className="mt-9" data-bts-reveal>
-          <CtaButton label={CTA_BTS} variant="onink" />
+          <div className="mt-9 flex justify-center">
+            <CtaButton label={CTA_BTS} />
+          </div>
         </div>
 
         <div className="mt-16 grid gap-10 border-t-2 border-on-ink/20 pt-12 md:grid-cols-12 md:gap-12">
@@ -119,6 +125,13 @@ export function SiteFooter() {
             By <span className="font-medium text-on-ink-dim">{FOOTER.by}</span>
           </p>
         </div>
+      </div>
+
+      {/* the academy's name at full width, fading down into the navy */}
+      <div className="overflow-hidden px-2 pt-2">
+        <p className="bts-wordmark text-center" aria-hidden>
+          Sanctum Jiu Jitsu
+        </p>
       </div>
     </footer>
   )

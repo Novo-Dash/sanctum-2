@@ -4,22 +4,34 @@ import { CTA_BTS, FAQ } from '../data'
 import { CtaButton } from './CtaButton'
 import { Tag } from './ui'
 
-/** Seven answers, one open at a time, each row a card with its own stroke. */
+/**
+ * Two columns: the section's own block stays with the reader on the left while
+ * the answers run past on the right. One answer open at a time, each row a card
+ * with its own stroke.
+ */
 export function CommonQuestions() {
   const [open, setOpen] = useState<string | null>(FAQ.items[0].q)
 
   return (
     <section className="bts-paper-grid py-20 md:py-28">
-      <div className="mx-auto max-w-[56rem] px-5 md:px-10">
-        <div data-bts-reveal>
-          <Tag variant="paper">Parents ask</Tag>
+      <div className="mx-auto grid max-w-[1280px] gap-12 px-5 md:px-10 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-5">
+          <div className="lg:sticky lg:top-28">
+            <div data-bts-reveal>
+              <Tag variant="paper">Parents ask</Tag>
+            </div>
+
+            <h2 className="bts-h2 mt-5 max-w-[14ch] text-ink" data-bts-lines>
+              {FAQ.headline}
+            </h2>
+
+            <div className="mt-8" data-bts-reveal>
+              <CtaButton label={CTA_BTS} />
+            </div>
+          </div>
         </div>
 
-        <h2 className="bts-h2 mt-5 text-ink" data-bts-lines>
-          {FAQ.headline}
-        </h2>
-
-        <div className="mt-12 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 lg:col-span-7">
           {FAQ.items.map((item) => {
             const isOpen = open === item.q
             return (
@@ -62,10 +74,6 @@ export function CommonQuestions() {
               </div>
             )
           })}
-        </div>
-
-        <div className="mt-12" data-bts-reveal>
-          <CtaButton label={CTA_BTS} />
         </div>
       </div>
     </section>

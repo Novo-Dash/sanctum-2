@@ -1,25 +1,61 @@
-import { Star } from '@phosphor-icons/react'
+import { useCallback, useRef } from 'react'
+import { CaretLeft, CaretRight, Star } from '@phosphor-icons/react'
 import { CTA_BTS, REVIEWS, STUDENTS } from '../data'
 import { CtaButton } from './CtaButton'
 import { Tag } from './ui'
 
 /**
- * Breadth without a marquee: a rail the visitor drags. Nothing loops on its
- * own, so the section stays still while it is being read.
+ * Breadth without a marquee: a rail the visitor drives, by dragging or with the
+ * two arrows. Nothing loops on its own, so the section stays still while it is
+ * being read.
  */
 export function Students() {
+  const rail = useRef<HTMLDivElement>(null)
+
+  const step = useCallback((direction: 1 | -1) => {
+    const el = rail.current
+    if (!el) return
+    const card = el.querySelector('figure')
+    const distance = card ? card.getBoundingClientRect().width + 24 : el.clientWidth * 0.8
+    el.scrollBy({ left: distance * direction, behavior: 'smooth' })
+  }, [])
+
   return (
     <section className="py-20 md:py-28">
       <div className="mx-auto max-w-[1280px] px-5 md:px-10">
-        <div data-bts-reveal>
-          <Tag>Google reviews</Tag>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div data-bts-reveal>
+              <Tag>Google reviews</Tag>
+            </div>
+            <h2 className="bts-h2 mt-5 max-w-[22ch] text-ink" data-bts-lines>
+              {STUDENTS.headline}
+            </h2>
+          </div>
+
+          <div className="flex gap-3" data-bts-reveal>
+            <button
+              type="button"
+              onClick={() => step(-1)}
+              aria-label="Previous reviews"
+              className="bts-rail-arrow"
+            >
+              <CaretLeft size={18} weight="bold" />
+            </button>
+            <button
+              type="button"
+              onClick={() => step(1)}
+              aria-label="More reviews"
+              className="bts-rail-arrow"
+            >
+              <CaretRight size={18} weight="bold" />
+            </button>
+          </div>
         </div>
-        <h2 className="bts-h2 mt-5 max-w-[22ch] text-ink" data-bts-lines>
-          {STUDENTS.headline}
-        </h2>
       </div>
 
       <div
+        ref={rail}
         className="bts-rail mt-12 flex snap-x gap-6 overflow-x-auto px-5 pb-6 pt-2 md:px-10"
         data-bts-reveal
       >
@@ -62,7 +98,7 @@ export function Students() {
       </div>
 
       <div className="mx-auto max-w-[1280px] px-5 md:px-10">
-        <div className="mt-8" data-bts-reveal>
+        <div className="mt-8 flex justify-center" data-bts-reveal>
           <CtaButton label={CTA_BTS} />
         </div>
       </div>

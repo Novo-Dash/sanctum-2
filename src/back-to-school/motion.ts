@@ -68,6 +68,27 @@ function splitWords(el: HTMLElement): HTMLElement[] {
   return Array.from(el.querySelectorAll<HTMLElement>('.bts-word > span'))
 }
 
+/** Scatters the third node's confetti once the timeline reaches it. */
+function burst(sparks: HTMLElement[]) {
+  sparks.forEach((spark, i) => {
+    const angle = ((i / sparks.length) * 360 - 90) * (Math.PI / 180)
+    const distance = 42 + (i % 3) * 18
+    gsap.fromTo(
+      spark,
+      { opacity: 1, x: 0, y: 0, scale: 1, rotation: 0 },
+      {
+        x: Math.cos(angle) * distance,
+        y: Math.sin(angle) * distance,
+        rotation: 200,
+        scale: 0.3,
+        opacity: 0,
+        duration: 0.85 + (i % 4) * 0.09,
+        ease: 'power2.out',
+      }
+    )
+  })
+}
+
 /** Everything visible, no movement: the reduced-motion and failure state. */
 function showEverything(root: ParentNode) {
   root.querySelectorAll<HTMLElement>('[data-bts-reveal]').forEach((el) => {
@@ -77,9 +98,11 @@ function showEverything(root: ParentNode) {
   root.querySelectorAll<HTMLElement>('.bts-word > span').forEach((el) => {
     el.style.transform = 'none'
   })
-  root.querySelectorAll<SVGPathElement>('[data-bts-spine] path').forEach((path) => {
-    path.style.strokeDasharray = 'none'
-    path.style.strokeDashoffset = '0'
+  root.querySelectorAll<HTMLElement>('[data-bts-fill]').forEach((fill) => {
+    fill.style.transform = 'scaleX(1)'
+  })
+  root.querySelectorAll<HTMLElement>('.bts-spark').forEach((spark) => {
+    spark.style.opacity = '0'
   })
 }
 
@@ -174,7 +197,63 @@ export function initMotion(root: HTMLElement): () => void {
         })
       })
 
-      /* Hover lift on the photo mosaic is CSS; nothing to register here. */
+      /* 5. The hero arch cycles through the academy's own frames, so the
+            doorway is never the same photo twice on a second visit. */
+      root.querySelectorAll<HTMLElement>('[data-bts-carousel]').forEach((box) => {
+        const slides = Array.from(box.querySelectorAll<HTMLElement>('.bts-slide'))
+        if (slides.length < 2) return
+        gsap.set(slides, { opacity: 0 })
+        gsap.set(slides[0], { opacity: 1 })
+        const tl = gsap.timeline({ repeat: -1 })
+        slides.forEach((slide, i) => {
+          const next = slides[(i + 1) % slides.length]
+          tl.to(slide, { opacity: 0, duration: 1.1, ease: 'power2.inOut' }, '+=3.4').to(
+            next,
+            { opacity: 1, duration: 1.1, ease: 'power2.inOut' },
+            '<'
+          )
+        })
+      })
+
+      /* 6. The small arch breathes. It is the only perpetual motion on the
+            page and it is barely there on purpose. */
+      gsap.utils.toArray<HTMLElement>('[data-bts-sway]').forEach((el, i) => {
+        gsap.to(el, {
+          y: -9,
+          rotation: 1.1,
+          duration: 3.6,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: i * 0.4,
+        })
+      })
+
+      /* 7. The steps timeline fills as the reader descends, and the third
+            node goes off when it arrives: the sequence has a finish line. */
+      root.querySelectorAll<HTMLElement>('[data-bts-track]').forEach((track) => {
+        const fill = track.querySelector<HTMLElement>('[data-bts-fill]')
+        const sparks = Array.from(track.querySelectorAll<HTMLElement>('.bts-spark'))
+        if (!fill) return
+        let fired = false
+        gsap.to(fill, {
+          scaleX: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: track,
+            start: 'top 85%',
+            end: 'top 45%',
+            scrub: 0.5,
+            onUpdate: (self) => {
+              if (!fired && self.progress > 0.98) {
+                fired = true
+                burst(sparks)
+              }
+            },
+          },
+        })
+      })
+
       return () => {
         showEverything(root)
       }

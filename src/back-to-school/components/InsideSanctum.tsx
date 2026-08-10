@@ -67,7 +67,7 @@ export function InsideSanctum() {
           </figure>
         </div>
 
-        <div className="mt-14" data-bts-reveal>
+        <div className="mt-14 flex justify-center" data-bts-reveal>
           <CtaButton label={CTA_BTS} />
         </div>
       </div>

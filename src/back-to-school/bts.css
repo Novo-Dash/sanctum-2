@@ -413,7 +413,10 @@ body {
    page can back up. They double as the section divider between chapters. */
 .bts-ribbons {
   position: relative;
-  height: 148px;
+  /* A band rotated 2.5deg across a 116%-wide strip reaches far above and below
+     its own box. The container has to be tall enough that the clip never lands
+     on a band, otherwise the ends read as a hard cut. */
+  height: clamp(190px, 13.5vw, 260px);
   overflow: hidden;
 }
 .bts-ribbon {
@@ -424,15 +427,15 @@ body {
   border-top: var(--bts-stroke) solid var(--color-ink);
   border-bottom: var(--bts-stroke) solid var(--color-ink);
   overflow: hidden;
+  top: 50%;
 }
+/* the two bands cross around the exact middle of the strip */
 .bts-ribbon--a {
-  top: 24px;
-  transform: rotate(-2.6deg);
+  transform: translateY(calc(-50% - 26px)) rotate(-1.8deg);
   background: var(--color-ink);
 }
 .bts-ribbon--b {
-  top: 74px;
-  transform: rotate(2.4deg);
+  transform: translateY(calc(-50% + 26px)) rotate(1.8deg);
   background: var(--color-accent);
 }
 .bts-ribbon__track {
@@ -552,4 +555,146 @@ body {
 }
 .bts-rail > * {
   scroll-snap-align: center;
+}
+
+/* ─── Notebook card ─────────────────────────────────────────────────────────
+   The closing argument, written on a page torn out of an exercise book: ruled
+   lines, a margin, and a real drop shadow lifting it off the navy. */
+.bts-notebook {
+  position: relative;
+  border: var(--bts-stroke-thick) solid var(--color-ink);
+  border-radius: var(--radius-card);
+  background-color: var(--color-paper-raised);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 37px,
+    rgba(14, 27, 61, 0.09) 37px,
+    rgba(14, 27, 61, 0.09) 38px
+  );
+  background-position: 0 8px;
+  box-shadow: 12px 14px 0 rgba(0, 0, 0, 0.28), 0 30px 60px -25px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+/* the margin rule, in the single accent */
+.bts-notebook::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: 26px;
+  width: 2px;
+  background: rgba(27, 58, 143, 0.28);
+}
+@media (min-width: 768px) {
+  .bts-notebook::before {
+    left: 42px;
+  }
+}
+
+/* Headlines that must not break a word or leave a lonely last line. */
+.bts-balance {
+  text-wrap: balance;
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* ─── Footer wordmark ───────────────────────────────────────────────────────
+   The academy's name at full width, fading down into the navy it sits on. */
+.bts-wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  /* one line from sm up; below that it breaks in two rather than being clipped */
+  white-space: normal;
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  font-size: clamp(3.2rem, 13.2vw, 13rem);
+  /* burns out well before the glyphs are clipped by the page edge */
+  background-image: linear-gradient(
+    to bottom,
+    rgba(239, 233, 220, 0.5) 0%,
+    rgba(239, 233, 220, 0.14) 44%,
+    rgba(239, 233, 220, 0) 74%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  user-select: none;
+}
+@media (min-width: 640px) {
+  .bts-wordmark {
+    white-space: nowrap;
+  }
+}
+
+/* ─── Hero carousel ─────────────────────────────────────────────────────────
+   Slides stacked in the same arch; motion.ts crossfades them. Without JS the
+   first frame simply stays. */
+.bts-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+.bts-slide:first-child {
+  opacity: 1;
+}
+
+/* ─── Rail arrows ───────────────────────────────────────────────────────────*/
+.bts-rail-arrow {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 9999px;
+  border: var(--bts-stroke) solid var(--color-ink);
+  background: var(--color-paper-raised);
+  color: var(--color-ink);
+  box-shadow: 3px 3px 0 var(--color-ink);
+  transition:
+    transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 160ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 160ms ease-out;
+}
+.bts-rail-arrow:hover {
+  background: var(--color-accent);
+  color: var(--color-on-ink);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--color-ink);
+}
+.bts-rail-arrow:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--color-ink);
+}
+
+/* ─── Steps timeline ────────────────────────────────────────────────────────*/
+.bts-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  transform: translateY(-50%);
+  background: var(--color-sand);
+}
+.bts-track__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.bts-spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  border: 1.5px solid var(--color-ink);
+  opacity: 0;
+  pointer-events: none;
 }

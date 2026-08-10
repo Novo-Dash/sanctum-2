@@ -1,7 +1,10 @@
 import { Star } from '@phosphor-icons/react'
-import { ACADEMY, HERO } from '../data'
+import { ACADEMY, GALLERY, HERO } from '../data'
 import { CtaButton } from './CtaButton'
 import { Tag, Tape } from './ui'
+
+/** Frames that follow the opening one in the hero arch. */
+const HERO_SLIDES = [GALLERY[2], GALLERY[5], GALLERY[0], GALLERY[3]]
 
 /**
  * Two columns, locked: the parent's argument on the left, the doorway on the
@@ -92,7 +95,8 @@ export function Hero() {
             />
 
             <div className="bts-arch bts-ink relative rotate-[1.4deg] bg-sand">
-              <div className="aspect-[4/5] w-full">
+              {/* motion.ts crossfades these; without JS the first frame stays */}
+              <div className="relative aspect-[4/5] w-full" data-bts-carousel>
                 <img
                   src="/imagens/bts/hero-a.webp"
                   alt="Two young students training together in a Sanctum kids class"
@@ -100,8 +104,18 @@ export function Hero() {
                   height={1320}
                   fetchPriority="high"
                   decoding="async"
-                  className="h-full w-full object-cover"
+                  className="bts-slide"
                 />
+                {HERO_SLIDES.map((slide) => (
+                  <img
+                    key={slide.src}
+                    src={slide.src}
+                    alt={slide.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="bts-slide"
+                  />
+                ))}
               </div>
             </div>
 
@@ -111,18 +125,23 @@ export function Hero() {
               Kids 4 to 12
             </Tag>
 
-            {/* the small arch stepping in front */}
-            <div className="bts-arch bts-ink absolute -bottom-8 -left-4 z-10 w-[38%] -rotate-[4deg] bg-sand sm:-left-8">
-              <div className="aspect-[3/4] w-full">
-                <img
-                  src="/imagens/bts/hero-b.webp"
-                  alt="Kids practising a technique on the mats at Sanctum"
-                  width={760}
-                  height={950}
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full object-cover"
-                />
+            {/* the small arch stepping in front: one photo, breathing gently */}
+            <div
+              className="absolute -bottom-8 -left-4 z-10 w-[38%] sm:-left-8"
+              data-bts-sway
+            >
+              <div className="bts-arch bts-ink -rotate-[4deg] bg-sand">
+                <div className="aspect-[3/4] w-full">
+                  <img
+                    src="/imagens/bts/hero-b.webp"
+                    alt="Kids practising a technique on the mats at Sanctum"
+                    width={760}
+                    height={950}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
               </div>
             </div>
 

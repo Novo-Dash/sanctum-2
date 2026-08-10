@@ -69,7 +69,7 @@ export function WhyJiuJitsu() {
           })}
         </ul>
 
-        <div className="mt-16" data-bts-reveal>
+        <div className="mt-16 flex justify-center" data-bts-reveal>
           <CtaButton label={CTA_BTS} variant="onink" />
         </div>
       </div>
