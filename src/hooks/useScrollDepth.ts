@@ -12,11 +12,10 @@ export function useScrollDepth() {
       for (const depth of DEPTHS) {
         if (scrolled >= depth && !fired.has(depth)) {
           fired.add(depth)
+          // GA4 only (behavior analytics). No Meta event here — the Pixel
+          // event set is closed: PageView, ViewContent, Lead, Schedule (§7.3).
           if (typeof window.gtag === 'function') {
             window.gtag('event', 'scroll_depth', { depth_percentage: depth })
-          }
-          if (typeof window.fbq === 'function') {
-            window.fbq('trackCustom', 'ScrollDepth', { depth })
           }
         }
       }

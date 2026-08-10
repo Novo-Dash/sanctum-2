@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import {
@@ -13,11 +12,11 @@ import {
   FinalCTA,
   StickyCTABar,
 } from '@/components/sections'
-import { BookingModal } from '@/components/sections/BookingModal'
 import UxModeWrapper from '@/components/UxModeWrapper'
-import { useModal } from '@/hooks/useModal'
+import { BookingProvider, useBooking } from '@/booking/booking-provider'
+import { BookingModal } from '@/booking/booking-modal'
+import { BookPage } from '@/pages/book'
 import { useScrollDepth } from '@/hooks/useScrollDepth'
-import type { ModalTag } from '@/hooks/useModal'
 import type { UxTokens } from '@/components/UxModeWrapper'
 
 const SANCTUM_TOKENS: UxTokens = {
@@ -49,46 +48,29 @@ const SANCTUM_TOKENS: UxTokens = {
 }
 
 function LandingPage() {
-  const { isOpen, defaultTag, open, close } = useModal()
+  const { openModal } = useBooking()
   useScrollDepth()
-
-  const handleBookClick = useCallback(
-    (tag?: ModalTag) => {
-      open(tag ?? null)
-      if (typeof window.fbq === 'function') {
-        window.fbq('track', 'InitiateCheckout')
-      }
-    },
-    [open]
-  )
-
-  const handleOpenWithTag = useCallback(
-    (tag: ModalTag) => {
-      handleBookClick(tag)
-    },
-    [handleBookClick]
-  )
 
   return (
     <div className="grain">
-      <Navbar onBookClick={() => handleBookClick()} />
+      <Navbar onBookClick={openModal} />
 
       <main>
-        <Hero onBookClick={() => handleBookClick()} />
-        <OurClasses onBookClick={handleOpenWithTag} />
+        <Hero onBookClick={openModal} />
+        <OurClasses onBookClick={openModal} />
         <Testimonials />
-        <HowToStart onBookClick={() => handleBookClick()} />
+        <HowToStart onBookClick={openModal} />
         <OurSchedule />
-        <OurInstructors onBookClick={() => handleBookClick()} />
-        <MoreOfUs onBookClick={() => handleBookClick()} />
+        <OurInstructors onBookClick={openModal} />
+        <MoreOfUs onBookClick={openModal} />
         <FAQ />
-        <FinalCTA onBookClick={() => handleBookClick()} />
+        <FinalCTA onBookClick={openModal} />
       </main>
 
       <Footer />
 
-      <BookingModal isOpen={isOpen} defaultTag={defaultTag} onClose={close} />
-      <StickyCTABar onBookClick={() => handleBookClick()} />
+      <BookingModal />
+      <StickyCTABar onBookClick={openModal} />
     </div>
   )
 }
@@ -96,13 +78,25 @@ function LandingPage() {
 export default function App() {
   const path = window.location.pathname
 
+  // Standalone booking page — same <BookingForm />, no nav (spec §4.1). The
+  // vercel.json SPA rewrite serves index.html for /book in production.
+  if (path === '/book') {
+    return <BookPage />
+  }
+
   if (path === '/ux') {
     return (
       <UxModeWrapper tokens={SANCTUM_TOKENS} cleanPath="/" primaryColor="#1B3A8F">
-        <LandingPage />
+        <BookingProvider>
+          <LandingPage />
+        </BookingProvider>
       </UxModeWrapper>
     )
   }
 
-  return <LandingPage />
+  return (
+    <BookingProvider>
+      <LandingPage />
+    </BookingProvider>
+  )
 }

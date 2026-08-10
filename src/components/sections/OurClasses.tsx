@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import type { ModalTag } from '@/hooks/useModal'
+type ModalTag = 'kids' | 'adults' | 'both' | null
 
 interface OurClassesProps {
   onBookClick: (tag: ModalTag) => void

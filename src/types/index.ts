@@ -38,24 +38,3 @@ export interface WhyUsItem {
   icon: 'family' | 'expert' | 'safe' | 'levels'
 }
 
-export interface ModalStep {
-  step: 'form' | 'loading' | 'success' | 'error'
-}
-
-export interface LeadFormData {
-  firstName: string
-  lastName: string
-  phone: string
-  email: string
-  programInterest: 'kids' | 'adults' | 'both'
-  howDidYouHear: string
-  website: string
-}
-
-export interface UTMParams {
-  utm_source: string
-  utm_medium: string
-  utm_campaign: string
-  utm_term: string
-  utm_content: string
-}
