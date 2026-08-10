@@ -7,6 +7,7 @@ import {
 } from '@phosphor-icons/react'
 import { ACADEMY, CTA_BTS, FOOTER } from '../data'
 import { CtaButton } from './CtaButton'
+import { Tag } from './ui'
 
 /**
  * Closing chapter: the same navy as the "why" section, so the page ends where
@@ -15,9 +16,13 @@ import { CtaButton } from './CtaButton'
  */
 export function SiteFooter() {
   return (
-    <footer className="bg-ink pt-20 text-on-ink md:pt-28">
+    <footer className="bts-paper-grid-ink bg-ink pt-20 text-on-ink md:pt-28">
       <div className="mx-auto max-w-[1280px] px-5 md:px-10">
-        <p className="bts-h2 max-w-[24ch] text-on-ink" data-bts-lines>
+        <div data-bts-reveal>
+          <Tag variant="onink">See you on the mats</Tag>
+        </div>
+
+        <p className="bts-h2 mt-5 max-w-[24ch] text-on-ink" data-bts-lines>
           <span className="text-accent-wash">{FOOTER.body[0]}</span>
           {' Back to School is the perfect opportunity to help your child start the new school year with more confidence.'}
         </p>
@@ -31,7 +36,7 @@ export function SiteFooter() {
           <CtaButton label={CTA_BTS} variant="onink" />
         </div>
 
-        <div className="mt-16 grid gap-10 border-t border-on-ink/15 pt-12 md:grid-cols-12 md:gap-12">
+        <div className="mt-16 grid gap-10 border-t-2 border-on-ink/20 pt-12 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-7">
             <img
               src="/foto1.webp"
@@ -52,7 +57,7 @@ export function SiteFooter() {
                   className="group flex items-start gap-4"
                 >
                   <ContactIcon>
-                    <MapPin size={17} weight="regular" />
+                    <MapPin size={17} weight="bold" />
                   </ContactIcon>
                   <span className="text-[0.98rem] leading-snug text-on-ink-dim transition-colors group-hover:text-on-ink">
                     {ACADEMY.street}
@@ -64,7 +69,7 @@ export function SiteFooter() {
               <li>
                 <a href={ACADEMY.phoneHref} className="group flex items-center gap-4">
                   <ContactIcon>
-                    <Phone size={17} weight="regular" />
+                    <Phone size={17} weight="bold" />
                   </ContactIcon>
                   <span className="text-[0.98rem] text-on-ink-dim transition-colors group-hover:text-on-ink">
                     {ACADEMY.phone}
@@ -74,7 +79,7 @@ export function SiteFooter() {
               <li>
                 <a href={`mailto:${ACADEMY.email}`} className="group flex items-center gap-4">
                   <ContactIcon>
-                    <EnvelopeSimple size={17} weight="regular" />
+                    <EnvelopeSimple size={17} weight="bold" />
                   </ContactIcon>
                   <span className="text-[0.98rem] text-on-ink-dim transition-colors group-hover:text-on-ink">
                     {ACADEMY.email}
@@ -85,16 +90,16 @@ export function SiteFooter() {
 
             <div className="mt-8 flex gap-3">
               <Social href={ACADEMY.instagram} label="Sanctum BJJ on Instagram">
-                <InstagramLogo size={19} weight="regular" />
+                <InstagramLogo size={19} weight="bold" />
               </Social>
               <Social href={ACADEMY.facebook} label="Sanctum BJJ on Facebook">
-                <FacebookLogo size={19} weight="regular" />
+                <FacebookLogo size={19} weight="bold" />
               </Social>
             </div>
           </div>
 
           <div className="md:col-span-5">
-            <div className="h-[260px] overflow-hidden rounded-card border border-on-ink/15 md:h-full md:min-h-[280px]">
+            <div className="h-[260px] overflow-hidden rounded-[var(--radius-card)] border-[2.5px] border-on-ink/30 md:h-full md:min-h-[280px]">
               <iframe
                 src={ACADEMY.mapEmbed}
                 title={`${ACADEMY.name} location in Miami, FL`}
@@ -108,7 +113,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-2 border-t border-on-ink/15 py-6 text-[0.8rem] text-on-ink-dim/70 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-2 border-t-2 border-on-ink/20 py-6 text-[0.8rem] text-on-ink-dim/70 sm:flex-row sm:items-center sm:justify-between">
           <p>{FOOTER.rights}</p>
           <p>
             By <span className="font-medium text-on-ink-dim">{FOOTER.by}</span>
@@ -123,7 +128,7 @@ function ContactIcon({ children }: { children: React.ReactNode }) {
   return (
     <span
       aria-hidden
-      className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-on-ink/10 text-on-ink transition-colors group-hover:bg-accent"
+      className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] border-2 border-on-ink/40 bg-on-ink/10 text-on-ink transition-colors group-hover:border-on-ink group-hover:bg-accent"
     >
       {children}
     </span>
@@ -145,7 +150,7 @@ function Social({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="grid h-11 w-11 place-items-center rounded-full border border-on-ink/20 text-on-ink-dim transition-colors hover:border-on-ink/50 hover:text-on-ink"
+      className="grid h-11 w-11 place-items-center rounded-full border-2 border-on-ink/40 text-on-ink-dim transition-colors hover:border-on-ink hover:text-on-ink"
     >
       {children}
     </a>

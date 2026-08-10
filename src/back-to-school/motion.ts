@@ -51,9 +51,10 @@ function splitWords(el: HTMLElement): HTMLElement[] {
     if (node.nodeType === Node.TEXT_NODE) {
       pushText(node.textContent ?? '')
     } else if (node instanceof HTMLElement) {
-      // Keep inline emphasis (the accented brand name) as its own masked word.
+      // Inline emphasis (the accented brand name, the circled word) rides along
+      // unmasked: the annotation drawn around it must not be clipped.
       const outer = document.createElement('span')
-      outer.className = 'bts-word'
+      outer.className = 'bts-word bts-word--free'
       const inner = node.cloneNode(true) as HTMLElement
       inner.style.display = 'inline-block'
       outer.appendChild(inner)

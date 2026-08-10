@@ -10,6 +10,7 @@ import { RightFit } from './components/RightFit'
 import { SiteFooter } from './components/SiteFooter'
 import { Students } from './components/Students'
 import { WhyJiuJitsu } from './components/WhyJiuJitsu'
+import { Ribbons } from './components/ui'
 import { initMotion } from './motion'
 
 export function BackToSchoolPage() {
@@ -27,9 +28,12 @@ export function BackToSchoolPage() {
 
         <main id="bts-main">
           <Hero />
+          {/* the running ribbons double as the chapter divider */}
+          <Ribbons />
           <WhyJiuJitsu />
           <Students />
           <HowToSchedule />
+          <Ribbons />
           <RightFit />
           <InsideSanctum />
           <CommonQuestions />

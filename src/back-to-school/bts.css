@@ -6,20 +6,34 @@
    Its own document (back-to-school.html), so nothing here can reach the main
    landing page and nothing there reaches here.
 
-   Concept: SANCTUM = sanctuary, an extension of home. The motif is the ARCH
-   (a doorway you walk your child through); the palette is the academy's real
-   one — deep navy ink, the walls' warm ivory light, Sanctum blue as the single
-   accent. The school layer is thin line icons, never a primary-colour cliché.
+   Concept: SANCTUM = sanctuary, an extension of home. The ARCH is the shape
+   language, the palette is the academy's real one (deep navy ink, warm ivory
+   light, Sanctum blue as the single accent), and the school layer is loud on
+   purpose: graph paper, tape, tags, thick ink strokes and running ribbons.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ─── Faces (self-hosted, latin subset) ─────────────────────────────────────
-   Young Serif: one weight, carved and warm — a lintel over a doorway. Chosen
-   because the register here is heritage/shelter, not tech. Source Sans 3 is a
-   true humanist sans: plain and legible for parents reading fast. */
+/* ─── Faces ─────────────────────────────────────────────────────────────────
+   Display is ChandlerMountain, the same condensed face the main Sanctum site
+   uses for its headlines, so the campaign reads as the same academy. Text is
+   Source Sans 3, a humanist sans that keeps the parent-facing copy plain. */
 @font-face {
-  font-family: 'Young Serif';
-  src: url('/fonte/bts/youngserif-normal.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'ChandlerMountain';
+  src: url('/fonte/chandler/ChandlerMountain-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ChandlerMountain';
+  src: url('/fonte/chandler/ChandlerMountain-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ChandlerMountain';
+  src: url('/fonte/chandler/ChandlerMountain-Black.woff') format('woff');
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
@@ -39,7 +53,7 @@
 }
 
 @theme {
-  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
+  --font-display: 'ChandlerMountain', 'Arial Narrow', system-ui, sans-serif;
   --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
 
   /* One accent only: Sanctum blue. Navy/ink is the same hue family, darkened. */
@@ -56,8 +70,8 @@
   --color-on-ink-dim: #b6bdd2;
 
   /* Shape rule (documented, applied everywhere):
-     photo frames = arch · buttons = pill · containers/inputs = 12px */
-  --radius-card: 12px;
+     photo frames = arch · buttons and tags = pill · containers = 14px */
+  --radius-card: 14px;
 }
 
 /* ─── Tokens the shared booking module reads ────────────────────────────────
@@ -88,15 +102,15 @@
   --color-placeholder-icon: #8b93a6;
   --color-danger: #b3261e;
 
-  --font-display: 'Young Serif', Georgia, serif;
+  --font-display: 'ChandlerMountain', 'Arial Narrow', sans-serif;
   --font-body: 'Source Sans 3', system-ui, sans-serif;
 
   --radius-sm: 12px;
-  --radius-md: 12px;
+  --radius-md: 14px;
   --radius-lg: 18px;
   --radius-full: 9999px;
   --radius-pill: 9999px;
-  --radius-card: 12px;
+  --radius-card: 14px;
   --radius-input: 12px;
   --radius-modal: 18px;
 
@@ -107,6 +121,10 @@
 
   --transition-micro: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
   --transition-macro: all 420ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Campaign-only: the ink stroke everything is drawn with */
+  --bts-stroke: 2.5px;
+  --bts-stroke-thick: 3px;
 }
 
 /* ─── Base ──────────────────────────────────────────────────────────────────
@@ -119,6 +137,10 @@ html {
 
 body {
   margin: 0;
+  /* clip, not hidden: rotated photo frames and tape must never widen the page,
+     and clip does not turn the body into a scroll container, so the sticky
+     photo column keeps working */
+  overflow-x: clip;
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 1rem;
@@ -135,7 +157,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid #1b3a8f;
+  outline: 3px solid #1b3a8f;
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -158,43 +180,73 @@ body {
   top: 16px;
 }
 
-/* ─── Fluid type ────────────────────────────────────────────────────────────
-   The hero headline is 12 words of client copy, so its measure is planned
-   around 2 lines at desktop: ~38ch at the size below. */
+/* ─── Graph paper ───────────────────────────────────────────────────────────
+   The school layer as the ground the whole page stands on: a squared exercise
+   book, in the campaign's own sand, never a blue-and-white school cliché. */
+.bts-paper-grid {
+  background-image:
+    linear-gradient(to right, rgba(14, 27, 61, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(14, 27, 61, 0.055) 1px, transparent 1px),
+    linear-gradient(to right, rgba(14, 27, 61, 0.09) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(14, 27, 61, 0.09) 1.5px, transparent 1.5px);
+  background-size:
+    28px 28px,
+    28px 28px,
+    140px 140px,
+    140px 140px;
+}
+.bts-paper-grid-ink {
+  background-image:
+    linear-gradient(to right, rgba(239, 233, 220, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(239, 233, 220, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ─── Typography ────────────────────────────────────────────────────────────
+   ChandlerMountain is condensed, so a 12-word headline fits its own column
+   without spilling across the layout. Always uppercase, like the main site. */
 .bts-h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.1rem, 1.15rem + 3.1vw, 3.3rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2.4rem, 1.25rem + 3.85vw, 4rem);
+  /* loose enough that the ellipse drawn around a word clears the lines above
+     and below it */
   line-height: 1.08;
-  letter-spacing: -0.015em;
-  max-width: 21ch;
-}
-@media (min-width: 1024px) {
-  .bts-h1 {
-    max-width: 38ch;
-  }
+  letter-spacing: 0.005em;
 }
 
 .bts-h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 1.05rem + 2.2vw, 2.75rem);
-  line-height: 1.14;
-  letter-spacing: -0.012em;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.1rem);
+  line-height: 1;
+  letter-spacing: 0.005em;
 }
 
 .bts-h3 {
   font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
   font-size: clamp(1.15rem, 0.95rem + 0.6vw, 1.4rem);
-  line-height: 1.25;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
 }
 
 .bts-lead {
-  font-size: clamp(1.02rem, 0.96rem + 0.28vw, 1.18rem);
-  line-height: 1.65;
+  font-size: clamp(1.02rem, 0.96rem + 0.28vw, 1.15rem);
+  line-height: 1.62;
+}
+
+/* Marker highlight behind a word of a headline. */
+.bts-mark {
+  background: linear-gradient(to top, rgba(27, 58, 143, 0.22) 42%, transparent 42%);
+  padding-inline: 0.08em;
 }
 
 /* ─── The arch ──────────────────────────────────────────────────────────────
-   The whole page's shape language: a rounded doorway. Elliptical radii keep
-   the curve constant whatever the frame's aspect ratio. */
+   The page's shape language: a rounded doorway, now drawn with ink. */
 .bts-arch {
   border-radius: 50% 50% var(--radius-card) var(--radius-card) /
     36% 36% var(--radius-card) var(--radius-card);
@@ -206,72 +258,251 @@ body {
   overflow: hidden;
 }
 
-/* Notebook rule — the school layer, whisper-quiet: one hairline per row. */
-.bts-rule {
-  background-image: linear-gradient(to right, var(--color-sand), var(--color-sand));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 1px;
+/* ─── Ink frames and sticker shadow ─────────────────────────────────────────
+   Everything the eye should treat as an object gets the same treatment: a
+   thick ink stroke and a hard offset shadow, no blur, like a sticker. */
+.bts-ink {
+  border: var(--bts-stroke) solid var(--color-ink);
+}
+.bts-ink-thick {
+  border: var(--bts-stroke-thick) solid var(--color-ink);
+}
+.bts-pop {
+  box-shadow: 7px 7px 0 var(--color-ink);
+}
+.bts-pop-sm {
+  box-shadow: 4px 4px 0 var(--color-ink);
+}
+.bts-pop-accent {
+  box-shadow: 7px 7px 0 var(--color-accent);
+}
+.bts-pop-onink {
+  box-shadow: 7px 7px 0 var(--color-on-ink);
+}
+
+/* Masking tape holding a photo to the page. */
+.bts-tape {
+  position: absolute;
+  width: 96px;
+  height: 26px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(226, 217, 199, 0.95),
+    rgba(226, 217, 199, 0.95) 6px,
+    rgba(212, 200, 176, 0.95) 6px,
+    rgba(212, 200, 176, 0.95) 12px
+  );
+  border-left: 1px dashed rgba(14, 27, 61, 0.25);
+  border-right: 1px dashed rgba(14, 27, 61, 0.25);
+  box-shadow: 0 2px 6px rgba(14, 27, 61, 0.16);
+}
+
+/* ─── Tags ──────────────────────────────────────────────────────────────────
+   The label that names a section, and the stickers that float on photos. */
+.bts-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.42rem 0.95rem;
+  border-radius: 9999px;
+  border: var(--bts-stroke) solid var(--color-ink);
+  background: var(--color-accent);
+  color: #fdfbf6;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0 var(--color-ink);
+}
+.bts-tag-paper {
+  background: var(--color-paper-raised);
+  color: var(--color-ink);
+}
+.bts-tag-onink {
+  background: var(--color-on-ink);
+  color: var(--color-ink);
+  border-color: var(--color-on-ink);
+  box-shadow: 3px 3px 0 rgba(239, 233, 220, 0.35);
 }
 
 /* ─── Buttons ───────────────────────────────────────────────────────────────
-   Pill, one line, WCAG AA in both placements (white on #1b3a8f = 8.6:1,
-   ink on ivory = 15.8:1). */
+   Pill, thick ink stroke, hard shadow, arrow that steps forward on hover and
+   the whole thing presses into the page on click. AA in every placement
+   (ivory on #1b3a8f = 9.9:1, ink on ivory = 14:1). */
 .bts-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  white-space: nowrap;
+  gap: 0.7rem;
+  /* the longest label is 38 characters; below sm it is sized to fit a 390px
+     screen on one line, and may wrap as a last resort rather than widen the
+     page */
+  white-space: normal;
+  text-align: center;
+  max-width: 100%;
   border-radius: 9999px;
-  font-family: var(--font-body);
-  font-weight: 600;
-  letter-spacing: 0.005em;
-  padding: 0.95rem 1.7rem;
-  font-size: 0.98rem;
-  line-height: 1;
-  min-height: 48px;
+  border: var(--bts-stroke-thick) solid var(--color-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.9rem 1.15rem;
+  font-size: 0.82rem;
+  line-height: 1.15;
+  min-height: 52px;
   text-decoration: none;
   cursor: pointer;
-  border: 1px solid transparent;
+  box-shadow: 5px 5px 0 var(--color-ink);
   transition:
-    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 180ms ease-out,
-    color 180ms ease-out;
+    transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 160ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 160ms ease-out;
 }
+.bts-cta:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--color-ink);
+}
+.bts-cta:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--color-ink);
+}
+@media (min-width: 640px) {
+  .bts-cta {
+    white-space: nowrap;
+    letter-spacing: 0.045em;
+    padding: 1rem 1.75rem;
+    font-size: 1.02rem;
+    line-height: 1;
+    min-height: 54px;
+  }
+}
+
+.bts-cta__arrow {
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bts-cta:hover .bts-cta__arrow {
+  transform: translateX(4px);
+}
+
 .bts-cta-primary {
   background: #1b3a8f;
   color: #fdfbf6;
-  box-shadow: var(--shadow-cta);
 }
 .bts-cta-primary:hover {
   background: #24499f;
-  transform: translateY(-2px);
-}
-.bts-cta-primary:active {
-  transform: translateY(0) scale(0.985);
 }
 .bts-cta-onink {
   background: #efe9dc;
   color: #0e1b3d;
-  box-shadow: 0 14px 30px -16px rgba(0, 0, 0, 0.6);
+  border-color: #efe9dc;
+  box-shadow: 5px 5px 0 #1b3a8f;
 }
 .bts-cta-onink:hover {
   background: #fdfbf6;
-  transform: translateY(-2px);
+  box-shadow: 8px 8px 0 #1b3a8f;
 }
 .bts-cta-onink:active {
-  transform: translateY(0) scale(0.985);
+  box-shadow: 1px 1px 0 #1b3a8f;
 }
-.bts-cta-quiet {
-  background: transparent;
-  color: #0e1b3d;
-  border-color: #cdbfa4;
+
+/* ─── Running ribbons ───────────────────────────────────────────────────────
+   Two diagonal bands crossing, one ink one accent, carrying only facts the
+   page can back up. They double as the section divider between chapters. */
+.bts-ribbons {
+  position: relative;
+  height: 148px;
+  overflow: hidden;
 }
-.bts-cta-quiet:hover {
-  border-color: #1b3a8f;
-  color: #1b3a8f;
+.bts-ribbon {
+  position: absolute;
+  left: -8%;
+  width: 116%;
+  padding: 0.7rem 0;
+  border-top: var(--bts-stroke) solid var(--color-ink);
+  border-bottom: var(--bts-stroke) solid var(--color-ink);
+  overflow: hidden;
+}
+.bts-ribbon--a {
+  top: 24px;
+  transform: rotate(-2.6deg);
+  background: var(--color-ink);
+}
+.bts-ribbon--b {
+  top: 74px;
+  transform: rotate(2.4deg);
+  background: var(--color-accent);
+}
+.bts-ribbon__track {
+  display: flex;
+  width: max-content;
+  gap: 2.5rem;
+  padding-right: 2.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.05rem;
+  color: #efe9dc;
+  white-space: nowrap;
+  will-change: transform;
+  animation: bts-ribbon-left 26s linear infinite;
+}
+.bts-ribbon--b .bts-ribbon__track {
+  animation-name: bts-ribbon-right;
+  animation-duration: 30s;
+}
+@keyframes bts-ribbon-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes bts-ribbon-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ─── Divider ───────────────────────────────────────────────────────────────
+   A ruled line broken by a star chip: the quiet divider, for inside a chapter. */
+.bts-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.bts-divider::before,
+.bts-divider::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--color-sand);
+}
+.bts-divider__mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: var(--bts-stroke) solid var(--color-ink);
+  background: var(--color-paper-raised);
+  color: var(--color-accent);
+  flex: none;
+}
+
+/* Notebook rule under a list row. */
+.bts-rule {
+  background-image: linear-gradient(to right, var(--color-sand), var(--color-sand));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
 }
 
 /* ─── Motion initial states (see back-to-school/motion.ts) ──────────────────
@@ -289,6 +520,10 @@ body {
   display: inline-block;
   transform: translateY(105%);
 }
+/* A word carrying an annotation cannot be clipped by its own mask. */
+.bts-word--free {
+  overflow: visible;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -299,6 +534,9 @@ body {
   }
   .bts-word > span {
     transform: none;
+  }
+  .bts-ribbon__track {
+    animation: none;
   }
 }
 

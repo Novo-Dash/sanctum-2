@@ -1,75 +1,70 @@
-import { CalendarBlank, ChatCircleText, NotePencil } from '@phosphor-icons/react'
+import { ArrowRight, CalendarBlank, ChatCircleText, NotePencil } from '@phosphor-icons/react'
 import type { Icon } from '@phosphor-icons/react'
 import { CTA_SCHEDULE, SCHEDULE } from '../data'
 import { CtaButton } from './CtaButton'
+import { Tag } from './ui'
 
 const STEP_ICONS: Icon[] = [NotePencil, CalendarBlank, ChatCircleText]
 
 /**
- * Three steps down one drawn line. The spine is an SVG path that draws itself
- * as the reader descends (motion.ts) — the only scrubbed animation on the page,
- * and it exists because the content is literally a sequence.
+ * Three cards on a squared page, each numbered, with an arrow pointing to the
+ * next one. The arrows are the whole reason this is a grid and not a list:
+ * the content is a sequence, so the layout has to move forward.
  */
 export function HowToSchedule() {
   return (
-    <section className="bg-paper-raised py-20 md:py-28">
-      <div className="mx-auto grid max-w-[1280px] gap-10 px-5 md:px-10 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-4">
-          <h2 className="bts-h2 text-ink lg:sticky lg:top-28" data-bts-lines>
-            {SCHEDULE.headline}
-          </h2>
+    <section className="bts-paper-grid bg-paper-raised py-20 md:py-28">
+      <div className="mx-auto max-w-[1280px] px-5 md:px-10">
+        <div data-bts-reveal>
+          <Tag>Three steps</Tag>
         </div>
 
-        <div className="lg:col-span-8">
-          <div className="relative md:mt-2">
-          {/* the spine, behind the steps, desktop only */}
-          <div
-            aria-hidden
-            data-bts-spine
-            className="pointer-events-none absolute left-[1.65rem] top-4 hidden h-[calc(100%-3rem)] w-16 md:block"
-          >
-            <svg
-              viewBox="0 0 64 400"
-              preserveAspectRatio="none"
-              className="h-full w-full"
-              fill="none"
-            >
-              <path
-                d="M32 0 C 32 120, 32 160, 32 200 C 32 240, 32 280, 32 400"
-                stroke="var(--color-accent)"
-                strokeOpacity="0.35"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
+        <h2 className="bts-h2 mt-5 text-ink" data-bts-lines>
+          {SCHEDULE.headline}
+        </h2>
 
-          <ol className="relative flex flex-col gap-10 md:gap-14" role="list">
-            {SCHEDULE.steps.map((step, i) => {
-              const StepIcon = STEP_ICONS[i]
-              return (
-                <li key={step.label} className="flex items-start gap-5 md:gap-8" data-bts-reveal>
+        <ol className="mt-14 grid gap-8 md:grid-cols-3 md:gap-5 lg:gap-8" role="list">
+          {SCHEDULE.steps.map((step, i) => {
+            const StepIcon = STEP_ICONS[i]
+            const last = i === SCHEDULE.steps.length - 1
+            return (
+              <li key={step.label} className="relative" data-bts-reveal>
+                <div className="bts-ink bts-pop h-full rounded-[var(--radius-card)] bg-paper px-6 pb-7 pt-9">
                   <span
                     aria-hidden
-                    className="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-sand bg-paper text-accent"
+                    className="absolute -top-5 left-6 grid h-11 w-11 place-items-center rounded-full border-[2.5px] border-ink bg-accent font-display text-[1.35rem] leading-none text-on-ink shadow-[3px_3px_0_var(--color-ink)]"
                   >
-                    <StepIcon size={24} weight="regular" />
+                    {i + 1}
                   </span>
-                  <div className="pt-1.5">
-                    <p className="font-display text-[0.95rem] text-accent">{step.label}</p>
-                    <p className="mt-1.5 max-w-[42ch] text-[1.12rem] leading-snug text-ink md:text-[1.3rem]">
-                      {step.text}
-                    </p>
-                  </div>
-                </li>
-              )
-            })}
-          </ol>
-          </div>
 
-          <div className="mt-14" data-bts-reveal>
-            <CtaButton label={CTA_SCHEDULE} className="!text-[0.82rem] !tracking-[0.06em]" />
-          </div>
+                  <span
+                    aria-hidden
+                    className="grid h-12 w-12 place-items-center rounded-[12px] border-2 border-ink bg-accent-wash text-accent"
+                  >
+                    <StepIcon size={24} weight="bold" />
+                  </span>
+
+                  <p className="mt-5 font-display text-[1rem] uppercase tracking-wide text-accent">
+                    {step.label}
+                  </p>
+                  <p className="mt-2 text-[1.08rem] leading-snug text-ink">{step.text}</p>
+                </div>
+
+                {!last && (
+                  <span
+                    aria-hidden
+                    className="absolute -right-[1.15rem] top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 place-items-center rounded-full border-[2.5px] border-ink bg-paper-raised text-ink md:grid lg:-right-[1.6rem]"
+                  >
+                    <ArrowRight size={16} weight="bold" />
+                  </span>
+                )}
+              </li>
+            )
+          })}
+        </ol>
+
+        <div className="mt-14" data-bts-reveal>
+          <CtaButton label={CTA_SCHEDULE} className="!text-[0.9rem]" />
         </div>
       </div>
     </section>

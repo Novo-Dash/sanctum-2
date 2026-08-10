@@ -1,9 +1,11 @@
 import { CTA_BTS, GALLERY, INSIDE } from '../data'
 import { CtaButton } from './CtaButton'
+import { Tag, Tape } from './ui'
 
 /**
- * The room itself. An uneven mosaic, one frame arched, so the gallery reads as
- * a wall of family photographs rather than a grid of tiles.
+ * The room itself. An uneven grid, one frame arched, everything drawn with the
+ * same ink stroke and taped down, so it reads as a wall of family photographs
+ * rather than a tidy tile grid.
  */
 export function InsideSanctum() {
   const [a, b, c, d, e, f] = GALLERY
@@ -11,21 +13,30 @@ export function InsideSanctum() {
   return (
     <section className="bg-paper-raised py-20 md:py-28">
       <div className="mx-auto max-w-[1280px] px-5 md:px-10">
-        <h2 className="bts-h2 text-ink" data-bts-lines>
+        <div data-bts-reveal>
+          <Tag>Our mats</Tag>
+        </div>
+        <h2 className="bts-h2 mt-5 text-ink" data-bts-lines>
           {INSIDE.headline}
         </h2>
 
-        <div className="mt-10 grid grid-cols-2 gap-4 md:mt-14 md:grid-cols-12 md:gap-5">
-          <figure className="bts-arch col-span-2 aspect-[3/4] bg-sand md:col-span-4" data-bts-reveal>
+        <div className="mt-14 grid grid-cols-2 gap-5 md:grid-cols-12 md:gap-6">
+          <figure
+            className="bts-arch bts-ink relative col-span-2 aspect-[3/4] -rotate-[1deg] bg-sand md:col-span-4"
+            data-bts-reveal
+          >
             <Photo photo={a} />
           </figure>
 
-          <div className="col-span-2 flex flex-col gap-4 md:col-span-5 md:gap-5">
-            <figure className="aspect-[3/2] overflow-hidden rounded-card bg-sand" data-bts-reveal>
+          <div className="col-span-2 flex flex-col gap-5 md:col-span-5 md:gap-6">
+            <figure
+              className="bts-ink relative aspect-[3/2] overflow-hidden rounded-[var(--radius-card)] bg-sand"
+              data-bts-reveal
+            >
               <Photo photo={b} />
             </figure>
             <figure
-              className="aspect-[4/3] flex-1 overflow-hidden rounded-card bg-sand"
+              className="bts-ink relative aspect-[4/3] flex-1 overflow-hidden rounded-[var(--radius-card)] bg-sand"
               data-bts-reveal
             >
               <Photo photo={c} />
@@ -33,7 +44,7 @@ export function InsideSanctum() {
           </div>
 
           <figure
-            className="col-span-1 aspect-[3/4] overflow-hidden rounded-card bg-sand md:col-span-3 md:aspect-auto"
+            className="bts-ink relative col-span-1 aspect-[3/4] rotate-[1.2deg] overflow-hidden rounded-[var(--radius-card)] bg-sand md:col-span-3 md:aspect-auto"
             data-bts-reveal
           >
             <Photo photo={d} />
@@ -41,21 +52,22 @@ export function InsideSanctum() {
 
           {/* bottom row: two different widths, one shared height so the row closes */}
           <figure
-            className="col-span-1 aspect-[3/4] overflow-hidden rounded-card bg-sand md:col-span-7 md:aspect-auto md:h-[22rem]"
+            className="bts-ink relative col-span-1 aspect-[3/4] overflow-hidden rounded-[var(--radius-card)] bg-sand md:col-span-7 md:aspect-auto md:h-[22rem]"
             data-bts-reveal
           >
             <Photo photo={e} />
           </figure>
 
           <figure
-            className="col-span-2 aspect-[3/2] overflow-hidden rounded-card bg-sand md:col-span-5 md:aspect-auto md:h-[22rem]"
+            className="bts-ink relative col-span-2 aspect-[3/2] -rotate-[0.8deg] overflow-hidden rounded-[var(--radius-card)] bg-sand md:col-span-5 md:aspect-auto md:h-[22rem]"
             data-bts-reveal
           >
+            <Tape className="left-8 -top-3" rotate={-6} />
             <Photo photo={f} />
           </figure>
         </div>
 
-        <div className="mt-12" data-bts-reveal>
+        <div className="mt-14" data-bts-reveal>
           <CtaButton label={CTA_BTS} />
         </div>
       </div>
