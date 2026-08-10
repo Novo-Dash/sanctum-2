@@ -8,6 +8,7 @@ import {
   identify,
   setUserData,
 } from './analytics'
+import { bookingConfig } from './config'
 import { fetchPrograms, sendBookingWebhook, sendLeadWebhook, toE164 } from './webhook'
 import type { BookingData } from './webhook'
 import type { Program } from './schedule'
@@ -91,7 +92,14 @@ export function BookingForm({ onClose }: { onClose?: () => void }) {
     let cancelled = false
     fetchPrograms()
       .then((list) => {
-        if (!cancelled) setPrograms({ status: 'ready', programs: list })
+        // A kids-only entry (Back to School) offers only the kids calendars.
+        // If the filter would empty the list, show everything rather than a
+        // dead end — the visitor can still book.
+        const { audience } = bookingConfig()
+        const narrowed = audience ? list.filter((p) => p.audience === audience) : list
+        if (!cancelled) {
+          setPrograms({ status: 'ready', programs: narrowed.length > 0 ? narrowed : list })
+        }
       })
       .catch(() => {
         if (!cancelled) setPrograms({ status: 'error' })

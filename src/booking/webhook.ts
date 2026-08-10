@@ -10,6 +10,7 @@
 import { PROGRAM_OVERRIDES, formatTimeLabel, isoDate } from './schedule'
 import type { Program, SlotMap } from './schedule'
 import { getAttribution } from './attribution'
+import { bookingConfig } from './config'
 
 /* Fixed for every academy — never parameterize. */
 const N8N_ORIGIN = 'https://n8n.novodash.com'
@@ -26,7 +27,10 @@ const LEAD_WEBHOOK_URL = LEAD_WEBHOOK_UUID
   ? `https://services.leadconnectorhq.com/hooks/${GHL_LOCATION_ID}/webhook-trigger/${LEAD_WEBHOOK_UUID}`
   : ''
 
-export const SOURCE_LABEL = 'Landing Page - Main'
+/** Set per entry in booking/config.ts — 'Landing Page - Main' by default. */
+function sourceLabel(): string {
+  return bookingConfig().source
+}
 
 export interface BookingData {
   name: string
@@ -101,7 +105,7 @@ export function sendLeadWebhook(d: BookingData) {
     program: d.program.name, // raw GHL calendar name -> CRM Program field (never the alias)
     audience: d.program.audience, // adults | kids — routes the shared workflow
     submittedAt: new Date().toISOString(),
-    source: SOURCE_LABEL,
+    source: sourceLabel(),
     ...getAttribution(),
   })
 }
@@ -122,7 +126,7 @@ export function sendBookingWebhook(d: BookingData) {
     stage: 'appointment_selected',
     appointment_date: isoDate(d.date), // local YYYY-MM-DD
     appointment_time: formatTimeLabel(d.time), // 12h + AM/PM for Luxon
-    source: SOURCE_LABEL,
+    source: sourceLabel(),
   })
 }
 

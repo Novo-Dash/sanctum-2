@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* The Back to School route is a separate document with its own stylesheet
+   (src/back-to-school/bts.css). Excluding it here keeps the campaign's classes
+   out of the main site's CSS. */
+@source not "./back-to-school";
+
 /* ─── Chandler Mountain Typeface ────────────────────────────────── */
 @font-face {
   font-family: 'ChandlerMountain';

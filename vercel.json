@@ -25,6 +25,8 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/ux", "destination": "/index.html" },
+    { "source": "/back-to-school", "destination": "/back-to-school.html" },
+    { "source": "/back-to-school/", "destination": "/back-to-school.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

@@ -1,7 +1,7 @@
 import { ACADEMY_ADDRESS } from './schedule'
 
 const POINTS = [
-  'Your first class is free — no commitment',
+  'Your first class is free, no commitment',
   'All levels welcome, we start you from zero',
   'Train with a 2025 World Champion',
 ]
@@ -40,7 +40,7 @@ export function BrandPanel() {
             trial class.
           </h2>
           <p className="mt-4 max-w-xs text-[0.95rem] leading-[1.6] text-white/65">
-            Two quick steps — your details, then a time that works for you.
+            Two quick steps: your details, then a time that works for you.
           </p>
 
           <ul className="mt-8 flex flex-col gap-3">

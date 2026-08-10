@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Sanctum BJJ — Back to School campaign design system
+
+   Its own document (back-to-school.html), so nothing here can reach the main
+   landing page and nothing there reaches here.
+
+   Concept: SANCTUM = sanctuary, an extension of home. The motif is the ARCH
+   (a doorway you walk your child through); the palette is the academy's real
+   one — deep navy ink, the walls' warm ivory light, Sanctum blue as the single
+   accent. The school layer is thin line icons, never a primary-colour cliché.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Faces (self-hosted, latin subset) ─────────────────────────────────────
+   Young Serif: one weight, carved and warm — a lintel over a doorway. Chosen
+   because the register here is heritage/shelter, not tech. Source Sans 3 is a
+   true humanist sans: plain and legible for parents reading fast. */
+@font-face {
+  font-family: 'Young Serif';
+  src: url('/fonte/bts/youngserif-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('/fonte/bts/sourcesans3-normal.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('/fonte/bts/sourcesans3-italic.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@theme {
+  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+
+  /* One accent only: Sanctum blue. Navy/ink is the same hue family, darkened. */
+  --color-ink: #0e1b3d;
+  --color-ink-soft: #17285a;
+  --color-paper: #f7f3ea;
+  --color-paper-raised: #fdfbf6;
+  --color-sand: #e2d9c7;
+  --color-accent: #1b3a8f;
+  --color-accent-deep: #142c6d;
+  --color-accent-wash: #e8ecf7;
+  --color-body: #4a5266;
+  --color-on-ink: #efe9dc;
+  --color-on-ink-dim: #b6bdd2;
+
+  /* Shape rule (documented, applied everywhere):
+     photo frames = arch · buttons = pill · containers/inputs = 12px */
+  --radius-card: 12px;
+}
+
+/* ─── Tokens the shared booking module reads ────────────────────────────────
+   booking/* is imported by both documents and styles itself from the main
+   site's variable names. Re-pointing them here (this document only) makes the
+   modal land in the campaign's palette without touching the home page. */
+:root {
+  color-scheme: light;
+
+  --color-bg: #fdfbf6;
+  --color-surface: #fdfbf6;
+  --color-surface-alt: #f7f3ea;
+  --color-bg-subtle: #f7f3ea;
+
+  --color-accent: #1b3a8f;
+  --color-accent-hover: #24499f;
+  --color-accent-dark: #142c6d;
+  --color-accent-subtle: #e8ecf7;
+  --accent-rgb: 27, 58, 143;
+
+  --color-text: #0e1b3d;
+  --color-text-secondary: #4a5266;
+  --color-text-muted: #8b93a6;
+
+  --color-border: #e2d9c7;
+  --color-border-light: #ece5d8;
+  --color-placeholder: #e2d9c7;
+  --color-placeholder-icon: #8b93a6;
+  --color-danger: #b3261e;
+
+  --font-display: 'Young Serif', Georgia, serif;
+  --font-body: 'Source Sans 3', system-ui, sans-serif;
+
+  --radius-sm: 12px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+  --radius-pill: 9999px;
+  --radius-card: 12px;
+  --radius-input: 12px;
+  --radius-modal: 18px;
+
+  --shadow-sm: 0 1px 3px rgba(14, 27, 61, 0.06);
+  --shadow-md: 0 12px 34px -18px rgba(14, 27, 61, 0.35);
+  --shadow-lg: 0 26px 60px -30px rgba(14, 27, 61, 0.45);
+  --shadow-cta: 0 10px 24px -14px rgba(27, 58, 143, 0.45);
+
+  --transition-micro: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-macro: all 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────────
+   Unlayered on purpose: these must win over Tailwind's layered preflight. */
+html {
+  scroll-behavior: smooth;
+  background-color: #f7f3ea;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: #f7f3ea;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: #1b3a8f;
+  color: #f7f3ea;
+}
+
+:focus-visible {
+  outline: 2px solid #1b3a8f;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.bts-skip-link {
+  position: absolute;
+  top: -100%;
+  left: 24px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: #1b3a8f;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+.bts-skip-link:focus {
+  top: 16px;
+}
+
+/* ─── Fluid type ────────────────────────────────────────────────────────────
+   The hero headline is 12 words of client copy, so its measure is planned
+   around 2 lines at desktop: ~38ch at the size below. */
+.bts-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 1.15rem + 3.1vw, 3.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  max-width: 21ch;
+}
+@media (min-width: 1024px) {
+  .bts-h1 {
+    max-width: 38ch;
+  }
+}
+
+.bts-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 1.05rem + 2.2vw, 2.75rem);
+  line-height: 1.14;
+  letter-spacing: -0.012em;
+}
+
+.bts-h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 0.95rem + 0.6vw, 1.4rem);
+  line-height: 1.25;
+}
+
+.bts-lead {
+  font-size: clamp(1.02rem, 0.96rem + 0.28vw, 1.18rem);
+  line-height: 1.65;
+}
+
+/* ─── The arch ──────────────────────────────────────────────────────────────
+   The whole page's shape language: a rounded doorway. Elliptical radii keep
+   the curve constant whatever the frame's aspect ratio. */
+.bts-arch {
+  border-radius: 50% 50% var(--radius-card) var(--radius-card) /
+    36% 36% var(--radius-card) var(--radius-card);
+  overflow: hidden;
+}
+.bts-arch-soft {
+  border-radius: 50% 50% var(--radius-card) var(--radius-card) /
+    18% 18% var(--radius-card) var(--radius-card);
+  overflow: hidden;
+}
+
+/* Notebook rule — the school layer, whisper-quiet: one hairline per row. */
+.bts-rule {
+  background-image: linear-gradient(to right, var(--color-sand), var(--color-sand));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+}
+
+/* ─── Buttons ───────────────────────────────────────────────────────────────
+   Pill, one line, WCAG AA in both placements (white on #1b3a8f = 8.6:1,
+   ink on ivory = 15.8:1). */
+.bts-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  padding: 0.95rem 1.7rem;
+  font-size: 0.98rem;
+  line-height: 1;
+  min-height: 48px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 180ms ease-out,
+    color 180ms ease-out;
+}
+.bts-cta-primary {
+  background: #1b3a8f;
+  color: #fdfbf6;
+  box-shadow: var(--shadow-cta);
+}
+.bts-cta-primary:hover {
+  background: #24499f;
+  transform: translateY(-2px);
+}
+.bts-cta-primary:active {
+  transform: translateY(0) scale(0.985);
+}
+.bts-cta-onink {
+  background: #efe9dc;
+  color: #0e1b3d;
+  box-shadow: 0 14px 30px -16px rgba(0, 0, 0, 0.6);
+}
+.bts-cta-onink:hover {
+  background: #fdfbf6;
+  transform: translateY(-2px);
+}
+.bts-cta-onink:active {
+  transform: translateY(0) scale(0.985);
+}
+.bts-cta-quiet {
+  background: transparent;
+  color: #0e1b3d;
+  border-color: #cdbfa4;
+}
+.bts-cta-quiet:hover {
+  border-color: #1b3a8f;
+  color: #1b3a8f;
+}
+
+/* ─── Motion initial states (see back-to-school/motion.ts) ──────────────────
+   Hidden here so nothing flashes before GSAP takes over. motion.ts always runs
+   one of its two matchMedia branches, and reveals everything if GSAP throws. */
+[data-bts-reveal] {
+  opacity: 0;
+}
+.bts-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.bts-word > span {
+  display: inline-block;
+  transform: translateY(105%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-bts-reveal] {
+    opacity: 1;
+  }
+  .bts-word > span {
+    transform: none;
+  }
+}
+
+/* ─── Testimonial rail ──────────────────────────────────────────────────────
+   Breadth without a marquee: the visitor drags, nothing loops on its own. */
+.bts-rail {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.bts-rail::-webkit-scrollbar {
+  display: none;
+}
+.bts-rail > * {
+  scroll-snap-align: center;
+}
