@@ -21,7 +21,7 @@ const GHL_LOCATION_ID = 'BLAGlS1z3mbc5amsNB1q'
 // TODO(Webhook 1): paste the Inbound Webhook UUID from GHL → [ND] Primary
 // Workflow → Inbound Webhook trigger. Until set, early-lead capture is a safe
 // no-op; the booking (Webhook 2) still upserts the contact in GHL.
-const LEAD_WEBHOOK_UUID = ''
+const LEAD_WEBHOOK_UUID = 'Jq7krZa8VvVRbAEAr4Y1'
 const LEAD_WEBHOOK_URL = LEAD_WEBHOOK_UUID
   ? `https://services.leadconnectorhq.com/hooks/${GHL_LOCATION_ID}/webhook-trigger/${LEAD_WEBHOOK_UUID}`
   : ''
