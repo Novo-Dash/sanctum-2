@@ -86,8 +86,13 @@ export function Hero() {
         </div>
 
         {/* ── right: the doorway ─────────────────────────────────────────── */}
-        <div className="lg:justify-self-end" data-bts-reveal="immediate">
-          <div className="relative mx-auto w-full max-w-[24rem] lg:mx-0 lg:max-w-[26rem]">
+        {/* The column must stay stretched. With justify-self-end the grid item
+            is sized by its content, and since every slide is absolutely
+            positioned there is no content to size it by, so the whole block
+            collapsed to zero width at lg. Pushing it right with a margin keeps
+            the column definite. */}
+        <div data-bts-reveal="immediate">
+          <div className="relative mx-auto w-full max-w-[24rem] lg:mr-0 lg:max-w-[26rem]">
             {/* the sheet of paper behind, tilted the other way */}
             <div
               aria-hidden

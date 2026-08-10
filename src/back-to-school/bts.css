@@ -639,7 +639,10 @@ body {
   object-fit: cover;
   opacity: 0;
 }
+/* The opening frame stays in flow so the arch always has something to be
+   sized by, whatever the layout around it does. */
 .bts-slide:first-child {
+  position: relative;
   opacity: 1;
 }
 
