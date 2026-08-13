@@ -9,7 +9,7 @@
 
 import { PROGRAM_OVERRIDES, formatTimeLabel, isoDate } from './schedule'
 import type { Program, SlotMap } from './schedule'
-import { getAttribution } from './attribution'
+import { getAttribution, getSourceLabel } from './attribution'
 import { bookingConfig } from './config'
 
 /* Fixed for every academy — never parameterize. */
@@ -105,7 +105,7 @@ export function sendLeadWebhook(d: BookingData) {
     program: d.program.name, // raw GHL calendar name -> CRM Program field (never the alias)
     audience: d.program.audience, // adults | kids — routes the shared workflow
     submittedAt: new Date().toISOString(),
-    source: sourceLabel(),
+    source: getSourceLabel(sourceLabel()),
     ...getAttribution(),
   })
 }
